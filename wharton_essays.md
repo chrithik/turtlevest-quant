@@ -94,7 +94,7 @@ You can add a brief mention of Shiller's course as a foundation:
 > [!NOTE]
 > This draft seamlessly weaves together the TurtleVest iOS app, TurtleVest Quant SEC parser, and the BaselCreditSim simulator sparked by the Yale course, while maintaining the Wharton-specific faculty and resource connections.
 
-> To shift the paradigm of retail finance away from gamification, I developed the **TurtleVest** iOS app, built **TurtleVest Quant** (`quant.turtlevest.com`) to parse SEC disclosures, and coded a Basel II credit risk simulator sparked by Yale’s Financial Markets course. At Wharton, I want to pivot from prototype engineering to academic research.
+> To shift the paradigm of retail finance away from gamification, I co-founded the **TurtleVest** iOS app and independently built the **TurtleVest Quant** (`quant.turtlevest.com`) SEC disclosure parser and a Basel II credit risk simulator sparked by Yale’s Financial Markets course. At Wharton, I want to pivot from prototype engineering to academic research.
 > 
 > I plan to concentrate in *Finance and Legal Studies & Business Ethics*, taking *FNCE 2070 (Corporate Valuation)* to ground my software tools in classical valuation models. To study how retail sentiment cascades and illiquidity impact systemic market stability, I hope to collaborate with Professor Itay Goldstein through the **Wharton Initiative on Financial Policy and Regulation (WIFPR)**. I also want to work with Professor Kevin Werbach to design ethical regulatory frameworks that protect retail investors.
 > 
@@ -104,9 +104,9 @@ You can add a brief mention of Shiller's course as a foundation:
 > [!TIP]
 > This draft puts extra emphasis on the quantitative modeling, SEC scraping, and Basel credit risk side, which is highly valued for its academic rigor.
 
-> To bridge coding and finance, I developed the **TurtleVest** iOS app for financial literacy and built **TurtleVest Quant** to automate SEC disclosure analysis. My interest in systemic risk deepened during Yale's Financial Markets course, prompting me to build a Basel II credit risk simulator (`credit.turtlevest.com`) to model default cascades and CDS hedging under interest rate shocks.
+> To bridge technology and finance, I co-founded the **TurtleVest** iOS app for financial literacy and independently developed **TurtleVest Quant** to automate SEC disclosure analysis. My interest in systemic risk deepened during Yale's Financial Markets course and my Bloomberg certification studies. When a Bloomberg report on a subprime-era short-seller targeting PE-backed insurers led me to Chicago Fed Working Paper 2025-09, I developed the credit risk simulator (`credit.turtlevest.com`) to model default probabilities and hedging models under interest rate shocks.
 > 
-> At Wharton, I want to concentration in *Finance*, using courses like *FNCE 2070* to align my simulation algorithms with formal asset pricing and valuation frameworks. I hope to conduct research with Professor Itay Goldstein at the **Wharton Initiative on Financial Policy and Regulation (WIFPR)** to study PE-owned insurer liquidity risks. 
+> At Wharton, I want to concentrate in *Finance*, using courses like *FNCE 2070* to align my simulation algorithms with formal asset pricing and valuation frameworks. I hope to conduct research with Professor Itay Goldstein at the **Wharton Initiative on Financial Policy and Regulation (WIFPR)** to study PE-owned insurer liquidity risks. 
 > 
 > Furthermore, I will collaborate with peers at the **Stevens Center for Innovation in Finance** to scale my open-source tools, using Wharton’s data infrastructure to democratize institutional-grade equity research and risk modeling for students nationwide.
 
