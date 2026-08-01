@@ -1,0 +1,15 @@
+services:
+  web:
+    build: .
+    container_name: turtlevest_web
+    restart: always
+    ports:
+      - "8555:8501"
+    environment:
+      - DATABASE_URL=postgresql://vivek:reddy22@host.docker.internal:5432/stocksdb
+      - FMP_API_KEY=d298a6129777e8bbc4254b0d4f0e416e
+      - DEVELOPMENT_MODE=false # Set to true to allow live scrapers and local Ollama connections during testing
+    env_file:
+      - .env
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
