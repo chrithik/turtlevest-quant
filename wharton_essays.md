@@ -162,8 +162,8 @@ You can add a brief mention of Shiller's course as a foundation:
 ### Suggested Narrative Outline (650-word Structure)
 
 #### 1. The Hook: The Rhythm of the Hills (approx. 120 words)
-*   **Sensory Action**: Describe the physical experience of running through your steep hillside neighborhood. The burning effort of the 15% incline, the control required to navigate the joint-jarring declines.
-*   **The Lesson of the Run**: Running here taught you that life is about pacing. Sprinting uphill leads to instant burnout; rushing downhill leads to stumbles. You must find your own steady rhythm.
+*   **Sensory Action**: Describe the physical experience of moving through your steep hillside neighborhood—whether running, walking, or pedaling your bicycle. The burning effort of the 15% incline, shifting gears to maintain momentum, and the control required to navigate the fast, joint-jarring declines.
+*   **The Lesson of the Run**: Moving here taught you that life is about pacing. Sprinting or pedaling too hard uphill leads to instant burnout; rushing downhill leads to stumbles. You must find your own steady rhythm.
 
 #### 2. The Creekside Transition: Looking Beneath the Surface (approx. 130 words)
 *   **The Creek Pathway**: When the run gets too intense, you pause by the community creek. Watching the steady water flow and observing the fish navigate the currents resets your mind.
