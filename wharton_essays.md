@@ -119,37 +119,37 @@ Furthermore, I will collaborate with peers at the **Stevens Center for Innovatio
 ### 3. Spark Alternatives for Essay 2 (Refined Wording)
 *Below are three ways to refine the "spark" sentence in Draft 2 depending on whether you want to emphasize academic research (Fed Paper), market awareness (Bloomberg), or both:*
 
-* **Option A: The Chicago Fed Paper (Highly Recommended for Academic Rigor)**
-  > *"My interest in systemic risk, intensified by analyzing Chicago Fed Working Paper 2025-09 on insurance private credit, prompted me to build a Basel II credit risk simulator (`credit.turtlevest.com`) to model default cascades..."*
-  * **Why it works**: Shows you are reading actual Federal Reserve research, which directly aligns with your Insurer Liquidity & Credit Risk Monitor project.
+#### Option A: The Chicago Fed Paper (Highly Recommended for Academic Rigor)
+> *"My interest in systemic risk, intensified by analyzing Chicago Fed Working Paper 2025-09 on insurance private credit, prompted me to build a Basel II credit risk simulator (`credit.turtlevest.com`) to model default cascades..."*
+* **Why it works**: Shows you are reading actual Federal Reserve research, which directly aligns with your Insurer Liquidity & Credit Risk Monitor project.
 
-* **Option B: The Bloomberg Article (Shows Real-Time Market Awareness)**
-  > *"My interest in systemic risk, sparked by a Bloomberg coverage of shadow banking and private credit expansion, prompted me to build a Basel II credit risk simulator (`credit.turtlevest.com`) to model default cascades..."*
-  * **Why it works**: Shows you follow financial news actively and connect current events to software implementation.
+#### Option B: The Bloomberg Article (Shows Real-Time Market Awareness)
+> *"My interest in systemic risk, sparked by a Bloomberg coverage of shadow banking and private credit expansion, prompted me to build a Basel II credit risk simulator (`credit.turtlevest.com`) to model default cascades..."*
+* **Why it works**: Shows you follow financial news actively and connect current events to software implementation.
 
-* **Option C: The Hybrid (Yale Course + Fed Paper - Best of Both Worlds)**
-  > *"Deepening concepts from Yale’s Financial Markets course by analyzing Chicago Fed Working Paper 2025-09, I was prompted to build a Basel II credit risk simulator (`credit.turtlevest.com`) to model default cascades..."*
-  * **Why it works**: Shows a natural academic progression: learning foundational theory in a structured course, and then reading primary research papers to build models.
+#### Option C: The Hybrid (Yale Course + Fed Paper - Best of Both Worlds)
+> *"Deepening concepts from Yale’s Financial Markets course by analyzing Chicago Fed Working Paper 2025-09, I was prompted to build a Basel II credit risk simulator (`credit.turtlevest.com`) to model default cascades..."*
+* **Why it works**: Shows a natural academic progression: learning foundational theory in a structured course, and then reading primary research papers to build models.
 
-* **Option D: The Narrative Chain (Bloomberg ➡️ Fed Paper - Highly Recommended)**
-  > *"My interest in systemic risk, sparked by a Bloomberg article on PE-owned insurer growth, led me to analyze Chicago Fed Working Paper 2025-09 and build a Basel II credit risk simulator (`credit.turtlevest.com`) to model default cascades..."*
-  * **Why it works**: This tells an incredibly active story. It shows you follow current market news (Bloomberg), did the secondary research to track down the academic source document (Chicago Fed Paper), and built software to model it.
+#### Option D: The Narrative Chain (Bloomberg ➡️ Fed Paper - Highly Recommended)
+> *"My interest in systemic risk, sparked by a Bloomberg article on PE-owned insurer growth, led me to analyze Chicago Fed Working Paper 2025-09 and build a Basel II credit risk simulator (`credit.turtlevest.com`) to model default cascades..."*
+* **Why it works**: This tells an incredibly active story. It shows you follow current market news (Bloomberg), did the secondary research to track down the academic source document (Chicago Fed Paper), and built software to model it.
 
-* **Option E: The Complete Chain (Yale Foundation ➡️ Bloomberg Spark ➡️ Fed Paper Deep-Dive - The Ultimate Formulation)**
-  > *"Building on risk management foundations from Yale’s Financial Markets course, a Bloomberg article on PE-owned insurer growth led me to analyze Chicago Fed Working Paper 2025-09 and code a Basel II credit risk simulator (`credit.turtlevest.com`) to model default cascades..."*
-  * **Why it works**: This is the absolute peak representation of academic rigor. It shows a complete trajectory: you built the theory base (Yale), connected it to real-time market trends (Bloomberg), researched the academic literature (Chicago Fed Paper), and constructed quantitative models to simulate it.
+#### Option E: The Complete Chain (Yale Foundation ➡️ Bloomberg Spark ➡️ Fed Paper Deep-Dive - The Ultimate Formulation)
+> *"Building on risk management foundations from Yale’s Financial Markets course, a Bloomberg article on PE-owned insurer growth led me to analyze Chicago Fed Working Paper 2025-09 and code a Basel II credit risk simulator (`credit.turtlevest.com`) to model default cascades..."*
+* **Why it works**: This is the absolute peak representation of academic rigor. It shows a complete trajectory: you built the theory base (Yale), connected it to real-time market trends (Bloomberg), researched the academic literature (Chicago Fed Paper), and constructed quantitative models to simulate it.
 
-* **Option F: The Semicolon Flow (Direct Integration - Highly Recommended)**
-  > *"My interest in systemic risk deepened during Yale's Financial Markets course; later, a Bloomberg article on PE-owned insurer growth led me to analyze Chicago Fed Working Paper 2025-09 and build a Basel II credit risk simulator (`credit.turtlevest.com`) to model default cascades and CDS hedging under interest rate shocks."*
-  * **Why it works**: It preserves the exact phrasing and flow of your preferred sentence, but inserts the Bloomberg/Fed paper research transition perfectly using a semicolon.
+#### Option F: The Semicolon Flow (Direct Integration - Highly Recommended)
+> *"My interest in systemic risk deepened during Yale's Financial Markets course; later, a Bloomberg article on PE-owned insurer growth led me to analyze Chicago Fed Working Paper 2025-09 and build a Basel II credit risk simulator (`credit.turtlevest.com`) to model default cascades and CDS hedging under interest rate shocks."*
+* **Why it works**: It preserves the exact phrasing and flow of your preferred sentence, but inserts the Bloomberg/Fed paper research transition perfectly using a semicolon.
 
-* **Option G: The "And After" Flow (Smooth Transition)**
-  > *"My interest in systemic risk deepened during Yale's Financial Markets course, and after a Bloomberg article on PE-owned insurer growth led me to analyze Chicago Fed Working Paper 2025-09, I built a Basel II credit risk simulator (`credit.turtlevest.com`) to model default cascades and CDS hedging under interest rate shocks."*
-  * **Why it works**: It reads as a single, fluid narrative of your progress from class material to live news and academic research.
+#### Option G: The "And After" Flow (Smooth Transition)
+> *"My interest in systemic risk deepened during Yale's Financial Markets course, and after a Bloomberg article on PE-owned insurer growth led me to analyze Chicago Fed Working Paper 2025-09, I built a Basel II credit risk simulator (`credit.turtlevest.com`) to model default cascades and CDS hedging under interest rate shocks."*
+* **Why it works**: It reads as a single, fluid narrative of your progress from class material to live news and academic research.
 
-* **Option H: The "Big Short" Narrative Flow (Direct & Highly Specific - Recommended)**
-  > *"My interest in systemic risk deepened during Yale's Financial Markets course; later, a Bloomberg report detailing how a subprime-era short-seller targeted the private credit portfolios of PE-backed life insurers led me to analyze Chicago Fed Working Paper 2025-09 and build a Basel II credit risk simulator (`credit.turtlevest.com`) to model default cascades and CDS hedging under interest rate shocks."*
-  * **Why it works**: This is incredibly compelling and mature. By mentioning a "subprime-era short-seller shorting PE-backed insurers," you immediately capture the attention of a finance reader. It connects your technical project directly to real-world institutional hedge fund strategies.
+#### Option H: The "Big Short" Narrative Flow (Direct & Highly Specific - Recommended)
+> *"My interest in systemic risk deepened during Yale's Financial Markets course; later, a Bloomberg report detailing how a subprime-era short-seller targeted the private credit portfolios of PE-backed life insurers led me to analyze Chicago Fed Working Paper 2025-09 and build a Basel II credit risk simulator (`credit.turtlevest.com`) to model default cascades and CDS hedging under interest rate shocks."*
+* **Why it works**: This is incredibly compelling and mature. By mentioning a "subprime-era short-seller shorting PE-backed insurers," you immediately capture the attention of a finance reader. It connects your technical project directly to real-world institutional hedge fund strategies.
 
 
 
