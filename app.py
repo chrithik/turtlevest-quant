@@ -199,7 +199,7 @@ st.markdown("""
         investors the fundamental, unvarnished financial truths behind a company's balance sheet."
     </p>
     <p style="margin-top: 15px; font-weight: 600; color: #b89b64; font-size: 0.95rem; margin-bottom: 0; letter-spacing: 0.5px;">
-        — Rithik Reddy (Montgomery High School, NJ), Founder & Lead Developer
+        — Rithik Reddy, Founder & Lead Developer
     </p>
 </div>
 """, unsafe_allow_html=True)
