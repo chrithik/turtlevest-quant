@@ -858,12 +858,12 @@ if not chart_df.empty:
     # 3. Build Plotly Graph Object for advanced layering
     fig_price = go.Figure()
     
-    # Trace 1: Raw Historical Data (semi-transparent to keep focus on model)
+    # Trace 1: Raw Historical Data (highly visible solid line)
     fig_price.add_trace(go.Scatter(
         x=chart_df["Date"],
         y=y,
         name="Historical Close",
-        line=dict(color="rgba(226, 232, 240, 0.4)", width=1.5)
+        line=dict(color="#38bdf8", width=2)
     ))
     
     # Trace 2: Regression Line (Historical Fit)
