@@ -1,7 +1,7 @@
 services:
   web:
     build: .
-    container_name: turtlevest_web
+    container_name: turtlevest-quant
     restart: always
     ports:
       - "8555:8501"
