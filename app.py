@@ -210,39 +210,44 @@ st.markdown("---")
 # 2. LIVE PROOF OF CONCEPT WIDGET
 # ----------------------------------------------------
 st.header("⚡ Live Data Engine Preview")
-st.write("Type a ticker to query live metrics calculated dynamically by our FMP and SEC parser pipelines.")
+st.write("Select a company ticker to view live disclosures and metrics processed by our quantitative pipelines.")
 
-if "ticker" not in st.session_state:
-    st.session_state.ticker = st.query_params.get("ticker", "NVDA").upper().strip()
+# Query cached symbols from the database or fall back to the index basket if offline
+cached_symbols = get_cached_tickers()
+if not cached_symbols:
+    cached_symbols = ["AAPL", "AMZN", "AVGO", "GOOGL", "JPM", "LLY", "META", "MSFT", "NVDA", "TSLA"]
 
-ticker = st.text_input("Enter Ticker Symbol (e.g., NVDA, AAPL, TSLA)", key="ticker").upper().strip()
+# Find the default index based on the query parameter or default to NVDA
+default_ticker = st.query_params.get("ticker", "NVDA").upper().strip()
+if default_ticker not in cached_symbols:
+    default_ticker = "NVDA" if "NVDA" in cached_symbols else cached_symbols[0]
+
+default_index = cached_symbols.index(default_ticker)
+
+ticker = st.selectbox(
+    "Select Ticker Symbol:",
+    options=cached_symbols,
+    index=default_index,
+    key="ticker"
+)
 st.query_params["ticker"] = ticker
 
 # Informational banner showing daily ingestion sweep status and available index symbols
-cached_symbols = get_cached_tickers()
-if cached_symbols:
-    index_list_str = ", ".join(cached_symbols)
-    status_label = "🟢 Live Database Cache"
-    desc_str = f"Currently cached in database: <span style='color: #f8fafc; font-weight: 600;'>{index_list_str}</span>."
-else:
-    status_label = "🟢 Daily Ingestion Index Active"
-    desc_str = "Core index basket: <span style='color: #f8fafc; font-weight: 600;'>MSFT, AAPL, NVDA, AVGO, GOOGL, META, AMZN, TSLA, JPM, LLY, UNH, ABBV, XOM, GE, COST, WMT, HD, MA, V, NFLX</span>."
-
+index_list_str = ", ".join(cached_symbols)
 st.markdown(f"""
 <div style="background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.15); border-radius: 8px; padding: 12px; margin-bottom: 20px;">
     <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-        <span style="color: #10b981; font-weight: 700; font-size: 0.9rem;">{status_label}</span>
+        <span style="color: #10b981; font-weight: 700; font-size: 0.9rem;">🟢 Live Database Cache Active</span>
         <span style="background: rgba(16, 185, 129, 0.12); color: #10b981; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">
             LATEST SWEEP: 2026-07-31
         </span>
     </div>
     <p style="margin: 6px 0 0 0; font-size: 0.85rem; color: #94a3b8; line-height: 1.4;">
-        To comply with SEC rate limits and protect local CPU/GPU resources from public search overload, 
-        our background pipeline scrapes disclosures and runs Ollama NLP models overnight. 
-        {desc_str} Searching custom symbols outside this index will utilize academic model consensus.
+        To optimize data retrieval latency and comply with SEC rate limits, our platform utilizes an overnight ingestion pipeline to pre-cache regulatory disclosures for market-active equities. Currently loaded in cache: <span style='color: #f8fafc; font-weight: 600;'>{index_list_str}</span>.
     </p>
 </div>
 """, unsafe_allow_html=True)
+
 
 # Secret URL-based force refresh (?force=true) to prevent public UI abuse
 if st.query_params.get("force", "false").lower() == "true":
