@@ -503,8 +503,8 @@ def get_insider_trades(symbol):
         except Exception:
             pass
             
-    # 3. Fallback to clean simulated data for the demo
-    return get_mock_insider_trades(symbol)
+    # 3. Return empty DataFrame if no real data is available
+    return pd.DataFrame()
 
 # Helper function to sanitize raw SEC filings of JSON strings, stray HTML tags, and buy/sell advice
 def clean_narrative_text(text):
