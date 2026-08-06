@@ -15,16 +15,9 @@ with st.sidebar:
     st.markdown("🌐 **Navigation:**")
     if st.button("Home Quant Terminal 🏠", use_container_width=True):
         st.switch_page("app.py")
-    if st.button("Launch Quant Dashboard 📊", use_container_width=True):
-        st.switch_page("pages/1_Dashboard.py")
     st.link_button("Download iOS App 📱", "https://apps.apple.com/us/app/turtlevest/id6746081109", use_container_width=True)
     st.write("---")
-    
-    st.markdown("🎓 **Founder's Research Dossier:**")
-    st.link_button("📄 Apple (AAPL) Report", "https://your-link-to-aapl-pdf.pdf", use_container_width=True)
-    st.link_button("📄 NVIDIA (NVDA) Report", "https://your-link-to-nvda-pdf.pdf", use_container_width=True)
-    st.link_button("📄 Microsoft (MSFT) Study", "https://your-link-to-msft-pdf.pdf", use_container_width=True)
-    st.write("---")
+
 
 st.markdown("""
 <style>

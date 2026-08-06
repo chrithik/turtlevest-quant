@@ -57,20 +57,24 @@ def run_ingestion():
     target_tickers = get_daily_target_tickers()
     
     # 2. Check if local Node.js scraper API is online
-    api_base = "http://localhost:3000"
+    api_base = os.environ.get("SCRAPER_API_URL", "")
     try:
-        res = requests.get(api_base, timeout=5)
-        print("✅ Node.js backend parser is online.")
+        if api_base:
+            res = requests.get(api_base, timeout=5)
+            print("✅ Node.js backend parser is online.")
+        else:
+            print("⚠️ Warning: SCRAPER_API_URL environment variable is not set.")
     except Exception:
         print("⚠️ Warning: Could not verify root Node.js server. Attempting connections anyway...")
         
+    ollama_url = os.environ.get("OLLAMA_URL", "")
     for index, ticker in enumerate(target_tickers, 1):
         print(f"\n[{index}/{len(target_tickers)}] Processing ticker: {ticker}...")
         
         # Trigger SEC Filing Insight (Postgres Cache populates on Node server side)
         try:
             print(f"  👉 Triggering SEC Filing Scrape & Ollama NLP analysis for {ticker}...")
-            payload = {"ticker": ticker, "force": True, "ollamaUrl": "http://192.168.1.242:11434", "model": "qwen-32k"}
+            payload = {"ticker": ticker, "force": True, "ollamaUrl": ollama_url, "model": "qwen-32k"}
             res_insights = requests.post(f"{api_base}/api/sec/insights", json=payload, timeout=120)
             
             if res_insights.ok:

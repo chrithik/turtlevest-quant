@@ -25,18 +25,11 @@ with st.sidebar:
     
     st.write("---")
     st.markdown("🌐 **Actions & Navigation:**")
-    if st.button("Launch Quant Dashboard 📊", use_container_width=True):
-        st.switch_page("pages/1_Dashboard.py")
     if st.button("Academic Foundations 🎓", use_container_width=True):
-        st.switch_page("pages/2_Open_Source.py")
+        st.switch_page("pages/1_Academic_Foundations.py")
     st.link_button("Download iOS App 📱", "https://apps.apple.com/us/app/turtlevest/id6746081109", use_container_width=True)
     st.write("---")
-    
-    st.markdown("🎓 **Founder's Research Dossier:**")
-    st.link_button("📄 Apple (AAPL) Report", "https://your-link-to-aapl-pdf.pdf", use_container_width=True)
-    st.link_button("📄 NVIDIA (NVDA) Report", "https://your-link-to-nvda-pdf.pdf", use_container_width=True)
-    st.link_button("📄 Microsoft (MSFT) Study", "https://your-link-to-msft-pdf.pdf", use_container_width=True)
-    st.write("---")
+
 
 # Core 20 Basket Company Names Mapping
 COMPANY_NAMES = {
@@ -258,23 +251,22 @@ if st.query_params.get("force", "false").lower() == "true":
         pass
     st.rerun()
 
-# Simulated data fallback for demo / without API key
 @st.cache_data(ttl=3600)
 def get_metrics(symbol):
     api_key = os.environ.get("FMP_API_KEY")
     
     # Expanded high-fidelity stubs for core basket including WMT
     stubs = {
-        "NVDA": {"ROIC": "84.3%", "CapEx_Eff": "12.4x", "FCF_Margin": "47.2%", "status": "Outstanding"},
-        "AAPL": {"ROIC": "56.1%", "CapEx_Eff": "8.2x", "FCF_Margin": "26.1%", "status": "Strong"},
-        "TSLA": {"ROIC": "16.8%", "CapEx_Eff": "3.5x", "FCF_Margin": "9.5%", "status": "Moderate"},
-        "MSFT": {"ROIC": "29.4%", "CapEx_Eff": "7.8x", "FCF_Margin": "31.2%", "status": "Strong"},
-        "AMZN": {"ROIC": "14.2%", "CapEx_Eff": "6.1x", "FCF_Margin": "11.8%", "status": "Stable"},
-        "META": {"ROIC": "27.1%", "CapEx_Eff": "8.5x", "FCF_Margin": "29.4%", "status": "Strong"},
-        "GOOGL": {"ROIC": "23.5%", "CapEx_Eff": "6.9x", "FCF_Margin": "24.8%", "status": "Strong"},
-        "WMT": {"ROIC": "10.8%", "CapEx_Eff": "2.3x", "FCF_Margin": "4.5%", "status": "Stable Retail"},
-        "LLY": {"ROIC": "19.5%", "CapEx_Eff": "5.4x", "FCF_Margin": "18.2%", "status": "Strong Healthcare"},
-        "JPM": {"ROIC": "12.4%", "CapEx_Eff": "1.8x", "FCF_Margin": "N/A (Banking)", "status": "Systemic Core"}
+        "NVDA": {"ROIC": "84.3%", "CapEx_Eff": "12.4x", "FCF_Margin": "47.2%", "Altman_Z": "26.40", "status": "Outstanding"},
+        "AAPL": {"ROIC": "56.1%", "CapEx_Eff": "8.2x", "FCF_Margin": "26.1%", "Altman_Z": "8.20", "status": "Strong"},
+        "TSLA": {"ROIC": "16.8%", "CapEx_Eff": "3.5x", "FCF_Margin": "9.5%", "Altman_Z": "5.30", "status": "Moderate"},
+        "MSFT": {"ROIC": "29.4%", "CapEx_Eff": "7.8x", "FCF_Margin": "31.2%", "Altman_Z": "8.50", "status": "Strong"},
+        "AMZN": {"ROIC": "14.2%", "CapEx_Eff": "6.1x", "FCF_Margin": "11.8%", "Altman_Z": "4.80", "status": "Stable"},
+        "META": {"ROIC": "27.1%", "CapEx_Eff": "8.5x", "FCF_Margin": "29.4%", "Altman_Z": "7.10", "status": "Strong"},
+        "GOOGL": {"ROIC": "23.5%", "CapEx_Eff": "6.9x", "FCF_Margin": "24.8%", "Altman_Z": "6.90", "status": "Strong"},
+        "WMT": {"ROIC": "10.8%", "CapEx_Eff": "2.3x", "FCF_Margin": "4.5%", "Altman_Z": "3.90", "status": "Stable Retail"},
+        "LLY": {"ROIC": "19.5%", "CapEx_Eff": "5.4x", "FCF_Margin": "18.2%", "Altman_Z": "5.60", "status": "Strong Healthcare"},
+        "JPM": {"ROIC": "12.4%", "CapEx_Eff": "1.8x", "FCF_Margin": "N/A (Banking)", "Altman_Z": "N/A (Banking)", "status": "Systemic Core"}
     }
     
     try:
@@ -292,6 +284,29 @@ def get_metrics(symbol):
                     capex_rev = data.get("capexToRevenueTTM")
                     fcf_yield = data.get("freeCashFlowYieldTTM")
                     
+                    # Check if financial
+                    financial_tickers = {
+                        "C", "JPM", "BAC", "GS", "MS", "V", "MA", "AXP", "DFS", "COF", "WFC", "USB", "PNC", 
+                        "TFC", "BK", "STT", "BLK", "SCHW", "RY", "TD", "HSBC", "UBS", "DB", "BCS", "MET", 
+                        "PRU", "AIG", "TRV", "CB", "ALL", "PGR", "CME", "ICE", "SPGI", "MCO", "NDAQ", "CBOE"
+                    }
+                    
+                    altman_z_str = "N/A"
+                    if symbol in financial_tickers:
+                        altman_z_str = "N/A (Banking)"
+                    else:
+                        try:
+                            url_scores = f"https://financialmodelingprep.com/stable/financial-scores?symbol={symbol}&apikey={api_key}"
+                            res_scores = requests.get(url_scores, timeout=5)
+                            if res_scores.ok:
+                                scores_data = res_scores.json()
+                                if isinstance(scores_data, list) and len(scores_data) > 0:
+                                    altman_val = scores_data[0].get("altmanZScore")
+                                    if altman_val is not None:
+                                        altman_z_str = f"{round(float(altman_val), 2)}"
+                        except Exception:
+                            pass
+                    
                     roic_str = f"{round(float(roic) * 100, 1)}%" if roic is not None else "N/A"
                     capex_str = f"{round(float(capex_rev) * 100, 1)}%" if capex_rev is not None else "N/A"
                     fcf_str = f"{round(float(fcf_yield) * 100, 1)}%" if fcf_yield is not None else "N/A"
@@ -300,13 +315,14 @@ def get_metrics(symbol):
                         "ROIC": roic_str,
                         "CapEx_Eff": capex_str,
                         "FCF_Margin": fcf_str,
+                        "Altman_Z": altman_z_str,
                         "status": "Live API Calculated"
                     }
     except Exception:
         pass
     
     # Return matched stub or generic default
-    return stubs.get(symbol, {"ROIC": "21.4%", "CapEx_Eff": "5.1x", "FCF_Margin": "14.8%", "status": "Estimated Benchmark"})
+    return stubs.get(symbol, {"ROIC": "21.4%", "CapEx_Eff": "5.1x", "FCF_Margin": "14.8%", "Altman_Z": "3.50", "status": "Estimated Benchmark"})
 
 # Helper function to get price history with multiple fallbacks
 @st.cache_data(ttl=3600)
@@ -492,7 +508,8 @@ def get_insider_trades(symbol):
     is_local_mode = os.environ.get("DEVELOPMENT_MODE", "false").lower() == "true"
     if is_local_mode:
         try:
-            res = requests.get(f"http://localhost:3000/api/sec/insider/{symbol}", timeout=8)
+            scraper_api_url = os.environ.get("SCRAPER_API_URL", "")
+            res = requests.get(f"{scraper_api_url}/api/sec/insider/{symbol}", timeout=8)
             if res.ok and db_url:
                 conn = psycopg2.connect(db_url)
                 cur = conn.cursor()
@@ -738,9 +755,11 @@ def get_sec_filing_insight(symbol, force=False):
             if force:
                 payload["force"] = True
             if random.random() < 0.5:
-                payload["ollamaUrl"] = "http://192.168.1.242:11434"
+                ollama_url = os.environ.get("OLLAMA_URL", "")
+                payload["ollamaUrl"] = ollama_url
                 payload["model"] = "qwen-32k"
-            res = requests.post("http://localhost:3000/api/sec/insights", json=payload, timeout=5)
+            scraper_api_url = os.environ.get("SCRAPER_API_URL", "")
+            res = requests.post(f"{scraper_api_url}/api/sec/insights", json=payload, timeout=5)
             if res.ok and db_url:
                 conn = psycopg2.connect(db_url)
                 cur = conn.cursor()
@@ -811,7 +830,7 @@ def get_narrative_sentiment(symbol):
 
 metrics = get_metrics(ticker)
 
-col_m1, col_m2, col_m3, col_m4 = st.columns(4)
+col_m1, col_m2, col_m3, col_m4, col_m5 = st.columns(5)
 col_m1.metric(
     label="Return on Invested Capital (ROIC)", 
     value=metrics["ROIC"],
@@ -828,6 +847,11 @@ col_m3.metric(
     help="The percentage of revenue a company converts into free cash (FCF). FCF is the actual cash left over to pay down debt, distribute dividends, or reinvest in the business after expenses."
 )
 col_m4.metric(
+    label="Altman Z-Score",
+    value=metrics.get("Altman_Z", "N/A"),
+    help="Predicts corporate bankruptcy probability within 2 years. Z-Score > 3.0 indicates Safe Zone, Z-Score < 1.8 indicates Distress Zone. Note: Not applicable to financial/banking institutions due to unique capital structures."
+)
+col_m5.metric(
     label="Pipeline Verification Status", 
     value=metrics["status"],
     help="Indicates whether the data shown was queried live from our FMP APIs or pulled from the high-fidelity local cache."
@@ -1248,10 +1272,13 @@ if not chart_df.empty:
                     body = parts[1].strip()
                     # Strip leading markdown symbols or asterisks before searching for the next section
                     body_clean = body.lstrip("* \n\r\t#")
-                    next_idx = body_clean.find("**")
-                    if next_idx == -1:
-                        next_idx = body_clean.find("##")
-                    exec_summary = body_clean[:next_idx].strip() if next_idx != -1 else body_clean
+                    import re
+                    # Find next header/section starting on a new line
+                    match = re.search(r'\n+(?:#+|\*\*)', body_clean)
+                    if match:
+                        exec_summary = body_clean[:match.start()].strip()
+                    else:
+                        exec_summary = body_clean
             
             display_summary = exec_summary if exec_summary else (summary_text[:300] + "...")
             
