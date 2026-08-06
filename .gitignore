@@ -2,5 +2,4 @@
 __pycache__/
 .streamlit/
 .DS_Store
-wharton_essays.md
-wharton_essay_strategy.md
+.drafts/
