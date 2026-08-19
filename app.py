@@ -1457,7 +1457,7 @@ with col_tech1:
 with col_tech2:
     st.markdown("""
     ##### 🧠 Qualitative Narrative NLP
-    Utilizes a locally hosted Large Language Model (LLM via Ollama) to scrape and parse Item 1A Risk Factors from raw SEC EDGAR filings, generating structured risk summaries and computing corporate sentiment indexes.
+    Utilizes a Large Language Model (LLM) to scrape and parse Item 1A Risk Factors from raw SEC EDGAR filings, generating structured risk summaries and computing corporate sentiment indexes.
     """)
 with col_tech3:
     st.markdown("""
