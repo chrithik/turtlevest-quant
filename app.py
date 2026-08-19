@@ -1446,10 +1446,24 @@ st.markdown("---")
 # ----------------------------------------------------
 # 5. TECHNICAL STACK ARCHITECTURE
 # ----------------------------------------------------
-st.markdown("### 💻 Technology Stack Architecture")
-st.markdown(
-    "`Python 3.11` | `FastAPI` | `Streamlit` | `Financial Modeling Prep API` | `SEC EDGAR Pipeline` | `PostgreSQL` | `Gemini 2.5 Flash` | Developed using open-source tools"
-)
+st.markdown("### 🖥️ Platform Tech Stack & System Architecture")
+
+col_tech1, col_tech2, col_tech3 = st.columns(3)
+with col_tech1:
+    st.markdown("""
+    ##### 🐍 Unified Application Core
+    Built using Python and Streamlit to integrate corporate financial metrics, real-time balance sheet charts, and narrative insights into a cohesive research terminal.
+    """)
+with col_tech2:
+    st.markdown("""
+    ##### 🧠 Qualitative Narrative NLP
+    Utilizes a locally hosted Large Language Model (LLM via Ollama) to scrape and parse Item 1A Risk Factors from raw SEC EDGAR filings, generating structured risk summaries and computing corporate sentiment indexes.
+    """)
+with col_tech3:
+    st.markdown("""
+    ##### 🤖 Agent-Assisted Engineering
+    Developed using an agent-first development model with **Google Antigravity**. This pair-programming framework assisted in building databases, coding secure scraping pipelines, and designing the quantitative credit metrics (ROIC, Altman Z-Score).
+    """)
 
 # ----------------------------------------------------
 # 6. DISCLAIMER
