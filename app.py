@@ -1462,7 +1462,7 @@ with col_tech2:
 with col_tech3:
     st.markdown("""
     ##### 🤖 Agent-Assisted Engineering
-    Developed using an agent-first development model with **Google Antigravity**. This pair-programming framework assisted in building databases, coding secure scraping pipelines, and designing the quantitative credit metrics (ROIC, Altman Z-Score).
+    Developed this application using **Google Antigravity**. This pair-programming framework assisted in building databases, coding secure scraping pipelines, and designing the quantitative credit metrics (ROIC, Altman Z-Score).
     """)
 
 # ----------------------------------------------------
