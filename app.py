@@ -230,10 +230,10 @@ with st.expander("ℹ️ About the Platform & Quantitative Research Portfolio", 
 st.markdown("---")
 
 # ----------------------------------------------------
-# 3. LIVE PROOF OF CONCEPT WIDGET
+# 3. QUANTITATIVE ANALYSIS TERMINAL
 # ----------------------------------------------------
-st.header("⚡ Live Data Engine Preview")
-st.write("Select a company ticker to view live disclosures and metrics processed by our quantitative pipelines.")
+st.header("📊 Quantitative Analytics Terminal")
+st.write("Select an equity ticker to inspect fundamental metrics and parsed SEC disclosures processed by our quantitative engine.")
 
 # Query cached symbols from the database or fall back to the index basket if offline
 cached_symbols = get_cached_tickers()
