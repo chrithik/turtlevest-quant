@@ -27,21 +27,27 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-col_title, col_nav = st.columns([3.5, 1.5])
-with col_title:
-    st.title("🎓 Academic Thesis & Technical Foundations")
-    st.write(
-        "TurtleVest is built on the belief that retail investors deserve the same analytical rigour "
-        "as institutional desks. Below we document the core mathematical formulas, database structures, "
-        "and pipeline schemas powering this site."
-    )
-with col_nav:
-    st.markdown("<div style='margin-top: 15px;'></div>", unsafe_allow_html=True)
-    if st.button("Home Quant Terminal 🏠", use_container_width=True):
-        st.switch_page("app.py")
+# ----------------------------------------------------
+# TOP NAVIGATION BAR
+# ----------------------------------------------------
+col_nav1, col_nav2, col_nav3, _ = st.columns([1.2, 1.6, 1.4, 3.8])
+with col_nav1:
+    st.page_link("app.py", label="Home Terminal", icon="🏠")
+with col_nav2:
+    st.page_link("pages/1_Academic_Foundations.py", label="Academic Foundations", icon="🎓")
+with col_nav3:
     st.link_button("Download iOS App 📱", "https://apps.apple.com/us/app/turtlevest/id6746081109", use_container_width=True)
 
-st.markdown("---")
+st.write("---")
+
+st.title("🎓 Academic Thesis & Technical Foundations")
+st.write(
+    "TurtleVest is built on the belief that retail investors deserve the same analytical rigour "
+    "as institutional desks. Below we document the core mathematical formulas, database structures, "
+    "and pipeline schemas powering this site."
+)
+
+st.write("---")
 
 # ----------------------------------------------------
 # 1. CORE ALGORITHMIC EQUATIONS

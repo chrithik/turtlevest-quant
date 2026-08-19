@@ -156,13 +156,26 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ----------------------------------------------------
-# 1. CONSOLIDATED TERMINAL HEADER & HERO (TOP NAVIGATION)
+# TOP NAVIGATION BAR
 # ----------------------------------------------------
-col_title, col_nav, col_logo = st.columns([3.0, 1.4, 0.6])
+col_nav1, col_nav2, col_nav3, _ = st.columns([1.2, 1.6, 1.4, 3.8])
+with col_nav1:
+    st.page_link("app.py", label="Home Terminal", icon="🏠")
+with col_nav2:
+    st.page_link("pages/1_Academic_Foundations.py", label="Academic Foundations", icon="🎓")
+with col_nav3:
+    st.link_button("Download iOS App 📱", "https://apps.apple.com/us/app/turtlevest/id6746081109", use_container_width=True)
+
+st.write("---")
+
+# ----------------------------------------------------
+# 1. CONSOLIDATED TERMINAL HEADER & HERO
+# ----------------------------------------------------
+col_title, col_logo = st.columns([4.2, 0.8])
 
 with col_title:
     st.markdown("""
-    <div style="background: linear-gradient(135deg, rgba(30, 41, 59, 0.4), rgba(15, 23, 42, 0.5)); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 20px; margin-top: -30px; margin-bottom: 15px; border-left: 5px solid #10b981;">
+    <div style="background: linear-gradient(135deg, rgba(30, 41, 59, 0.4), rgba(15, 23, 42, 0.5)); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 20px; margin-top: -10px; margin-bottom: 15px; border-left: 5px solid #10b981;">
         <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 8px;">
             <div style="display: flex; align-items: center; gap: 8px;">
                 <span style="font-size: 1.6rem; font-weight: 800; letter-spacing: 0.5px; background: linear-gradient(90deg, #f8fafc, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">TurtleVest</span>
@@ -181,15 +194,9 @@ with col_title:
     </div>
     """, unsafe_allow_html=True)
 
-with col_nav:
-    st.markdown("<div style='margin-top: -20px;'></div>", unsafe_allow_html=True)
-    if st.button("Academic Foundations 🎓", use_container_width=True):
-        st.switch_page("pages/1_Academic_Foundations.py")
-    st.link_button("Download iOS App 📱", "https://apps.apple.com/us/app/turtlevest/id6746081109", use_container_width=True)
-
 with col_logo:
-    st.markdown("<div style='text-align: center; margin-top: -25px;'>", unsafe_allow_html=True)
-    st.image("icon.png", width=70)
+    st.markdown("<div style='text-align: center; margin-top: -5px;'>", unsafe_allow_html=True)
+    st.image("icon.png", width=100)
     st.markdown("</div>", unsafe_allow_html=True)
 
 # ----------------------------------------------------
