@@ -92,6 +92,25 @@ def get_cached_tickers():
     except Exception:
         return []
 
+@st.cache_data(ttl=300)
+def get_latest_sweep_date():
+    db_url = os.environ.get("DATABASE_URL")
+    if not db_url:
+        return "2026-07-31"
+    try:
+        conn = psycopg2.connect(db_url)
+        cur = conn.cursor()
+        cur.execute("SELECT MAX(created_at) FROM filing_insights")
+        row = cur.fetchone()
+        cur.close()
+        conn.close()
+        if row and row[0]:
+            return row[0].strftime("%Y-%m-%d")
+    except Exception:
+        pass
+    return "2026-07-31"
+
+
 
 # Custom Premium Styling
 st.markdown("""
@@ -255,18 +274,18 @@ ticker = st.selectbox(
 )
 st.query_params["ticker"] = ticker
 
-# Informational banner showing daily ingestion sweep status and available index symbols
+# Informational banner showing weekly ingestion sweep status and available index symbols
 index_list_str = ", ".join(cached_symbols)
 st.markdown(f"""
 <div style="background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.15); border-radius: 8px; padding: 12px; margin-bottom: 20px;">
     <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
         <span style="color: #10b981; font-weight: 700; font-size: 0.9rem;">🟢 Live Database Cache Active</span>
         <span style="background: rgba(16, 185, 129, 0.12); color: #10b981; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">
-            LATEST SWEEP: 2026-07-31
+            LATEST SWEEP: {get_latest_sweep_date()}
         </span>
     </div>
     <p style="margin: 6px 0 0 0; font-size: 0.85rem; color: #94a3b8; line-height: 1.4;">
-        To optimize data retrieval latency and comply with SEC rate limits, our platform utilizes an overnight ingestion pipeline to pre-cache regulatory disclosures for market-active equities. Currently loaded in cache: <span style='color: #f8fafc; font-weight: 600;'>{index_list_str}</span>.
+        To optimize data retrieval latency and comply with SEC rate limits, our platform utilizes a weekly ingestion pipeline to pre-cache regulatory disclosures for market-active equities. Currently loaded in cache: <span style='color: #f8fafc; font-weight: 600;'>{index_list_str}</span>.
     </p>
 </div>
 """, unsafe_allow_html=True)
