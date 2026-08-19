@@ -14,21 +14,8 @@ st.set_page_config(
     page_title="TurtleVest | Quantitative Equity Platform",
     page_icon="icon.png",
     layout="wide",
-    initial_sidebar_state="expanded"
-)
+    )
 
-# Custom Sidebar Information Panel
-with st.sidebar:
-    st.markdown("### 🐢 TurtleVest Engine")
-    active_sidebar_ticker = st.session_state.get("ticker", st.query_params.get("ticker", "NVDA")).upper().strip()
-    st.info(f"🔍 Currently Analyzing: **{active_sidebar_ticker}**")
-    
-    st.write("---")
-    st.markdown("🌐 **Actions & Navigation:**")
-    if st.button("Academic Foundations 🎓", use_container_width=True):
-        st.switch_page("pages/1_Academic_Foundations.py")
-    st.link_button("Download iOS App 📱", "https://apps.apple.com/us/app/turtlevest/id6746081109", use_container_width=True)
-    st.write("---")
 
 
 # Core 20 Basket Company Names Mapping
@@ -169,9 +156,9 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ----------------------------------------------------
-# 1. CONSOLIDATED TERMINAL HEADER & HERO
+# 1. CONSOLIDATED TERMINAL HEADER & HERO (TOP NAVIGATION)
 # ----------------------------------------------------
-col_title, col_logo = st.columns([4.2, 1])
+col_title, col_nav, col_logo = st.columns([3.0, 1.4, 0.6])
 
 with col_title:
     st.markdown("""
@@ -194,9 +181,15 @@ with col_title:
     </div>
     """, unsafe_allow_html=True)
 
+with col_nav:
+    st.markdown("<div style='margin-top: -20px;'></div>", unsafe_allow_html=True)
+    if st.button("Academic Foundations 🎓", use_container_width=True):
+        st.switch_page("pages/1_Academic_Foundations.py")
+    st.link_button("Download iOS App 📱", "https://apps.apple.com/us/app/turtlevest/id6746081109", use_container_width=True)
+
 with col_logo:
-    st.markdown("<div style='text-align: center; margin-top: -15px;'>", unsafe_allow_html=True)
-    st.image("icon.png", width=120)
+    st.markdown("<div style='text-align: center; margin-top: -25px;'>", unsafe_allow_html=True)
+    st.image("icon.png", width=70)
     st.markdown("</div>", unsafe_allow_html=True)
 
 # ----------------------------------------------------
