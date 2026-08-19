@@ -1452,7 +1452,7 @@ col_tech1, col_tech2, col_tech3 = st.columns(3)
 with col_tech1:
     st.markdown("""
     ##### 🐍 Unified Application Core
-    Built using Python and Streamlit to integrate corporate financial metrics, real-time balance sheet charts, and narrative insights into a cohesive research terminal.
+    Built using Python and Streamlit to integrate corporate financial metrics, disclosure-derived balance sheet charts, and narrative insights into a cohesive research terminal.
     """)
 with col_tech2:
     st.markdown("""
