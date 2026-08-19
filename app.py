@@ -181,51 +181,51 @@ with col_logo:
     st.markdown("</div>", unsafe_allow_html=True)
 
 # ----------------------------------------------------
-# Founder's Note & Mission Statement
+# Collapsible Platform Overview & Founder Note
 # ----------------------------------------------------
-st.markdown("""
-<div style="background: rgba(30, 41, 59, 0.4); border-left: 4px solid #b89b64; border-radius: 8px; padding: 20px; margin-top: -10px; margin-bottom: 20px; border-top: 1px solid rgba(255,255,255,0.05); border-right: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);">
-    <p style="font-size: 1.05rem; color: #e2e8f0; line-height: 1.6; font-style: italic; margin: 0;">
-        "Most retail platforms <span style="color: #f43f5e; font-weight: 700; text-shadow: 0 0 10px rgba(244,63,94,0.2);">gamify trading</span>, encouraging short-term speculation. 
-        I built TurtleVest to do the exact opposite. Inspired by value investing principles, 
-        my platform scales data directly from regulatory corporate disclosures to give long-term 
-        investors the fundamental, unvarnished financial truths behind a company's balance sheet."
-    </p>
-    <p style="margin-top: 15px; font-weight: 600; color: #b89b64; font-size: 0.95rem; margin-bottom: 0; letter-spacing: 0.5px;">
-        — Rithik Reddy, Founder
-    </p>
-</div>
-""", unsafe_allow_html=True)
+with st.expander("ℹ️ About the Platform & Quantitative Research Portfolio", expanded=False):
+    # Founder's Note & Mission Statement
+    st.markdown("""
+    <div style="background: rgba(30, 41, 59, 0.4); border-left: 4px solid #b89b64; border-radius: 8px; padding: 20px; margin-top: 10px; margin-bottom: 20px; border-top: 1px solid rgba(255,255,255,0.05); border-right: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);">
+        <p style="font-size: 1.05rem; color: #e2e8f0; line-height: 1.6; font-style: italic; margin: 0;">
+            "Most retail platforms <span style="color: #f43f5e; font-weight: 700; text-shadow: 0 0 10px rgba(244,63,94,0.2);">gamify trading</span>, encouraging short-term speculation. 
+            I built TurtleVest to do the exact opposite. Inspired by value investing principles, 
+            my platform scales data directly from regulatory corporate disclosures to give long-term 
+            investors the fundamental, unvarnished financial truths behind a company's balance sheet."
+        </p>
+        <p style="margin-top: 15px; font-weight: 600; color: #b89b64; font-size: 0.95rem; margin-bottom: 0; letter-spacing: 0.5px;">
+            — Rithik Reddy, Founder
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
-# ----------------------------------------------------
-# Project Description & Quantitative Portfolio Overview
-# ----------------------------------------------------
-st.markdown("""
-<div style="background: linear-gradient(135deg, rgba(30, 41, 59, 0.4), rgba(15, 23, 42, 0.5)); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 24px; margin-top: 10px; margin-bottom: 25px; border-left: 5px solid #10b981;">
-    <h3 style="margin-top: 0; color: #10b981; font-size: 1.15rem; font-weight: 700; letter-spacing: 0.5px;">📋 Research Portfolio & Platform Overview</h3>
-    <p style="font-size: 0.88rem; color: #94a3b8; line-height: 1.5; margin-bottom: 16px;">
-        TurtleVest Quant operates as a comprehensive quantitative platform designed to bridge academic finance theory and active developer implementations. The portfolio consists of two distinct risk-monitoring engines:
-    </p>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex-wrap: wrap;">
-        <div style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 16px; border-top: 2px solid #10b981;">
-            <h4 style="margin-top: 0; color: #f8fafc; font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 8px;">
-                📈 TurtleVest Quant Terminal <span style="background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 1px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 700;">Active Site</span>
-            </h4>
-            <p style="font-size: 0.8rem; color: #94a3b8; line-height: 1.45; margin: 8px 0 0 0;">
-                Focuses on corporate equity valuation and text parsing. Ingests raw SEC Form 10-K/Q filings, utilizes a locally hosted Large Language Model (LLM via Ollama) to compute a <strong>Semantic Risk & Corporate Anxiety Index</strong>, and displays indicators like ROIC and the Altman Z-Score.
-            </p>
-        </div>
-        <div style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 16px; border-top: 2px solid #b89b64;">
-            <h4 style="margin-top: 0; color: #f8fafc; font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 8px;">
-                🏦 Insurer Liquidity & Credit Risk Monitor <span style="background: rgba(184, 155, 100, 0.1); color: #b89b64; padding: 1px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 700;">Sister Simulator</span>
-            </h4>
-            <p style="font-size: 0.8rem; color: #94a3b8; line-height: 1.45; margin: 8px 0 0 0;">
-                Models institutional credit mismatch. Formulates ordinary least squares (OLS) regressions to analyze how life insurers allocate yield-seeking assets to private credit placements at the risk of asset-liability mismatches (ALM), inspired by <strong>Chicago Fed Working Paper 2025-09</strong>. Deployed at <a href="https://ilcrm.turtlevest.com" target="_blank" style="color: #b89b64; text-decoration: underline; font-weight: 600;">ilcrm.turtlevest.com</a>.
-            </p>
+    # Project Description & Quantitative Portfolio Overview
+    st.markdown("""
+    <div style="background: linear-gradient(135deg, rgba(30, 41, 59, 0.4), rgba(15, 23, 42, 0.5)); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 24px; border-left: 5px solid #10b981;">
+        <h3 style="margin-top: 0; color: #10b981; font-size: 1.15rem; font-weight: 700; letter-spacing: 0.5px;">📋 Research Portfolio & Platform Overview</h3>
+        <p style="font-size: 0.88rem; color: #94a3b8; line-height: 1.5; margin-bottom: 16px;">
+            TurtleVest Quant operates as a comprehensive quantitative platform designed to bridge academic finance theory and active developer implementations. The portfolio consists of two distinct risk-monitoring engines:
+        </p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex-wrap: wrap;">
+            <div style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 16px; border-top: 2px solid #10b981;">
+                <h4 style="margin-top: 0; color: #f8fafc; font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    📈 TurtleVest Quant Terminal <span style="background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 1px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 700;">Active Site</span>
+                </h4>
+                <p style="font-size: 0.8rem; color: #94a3b8; line-height: 1.45; margin: 8px 0 0 0;">
+                    Focuses on corporate equity valuation and text parsing. Ingests raw SEC Form 10-K/Q filings, utilizes a locally hosted Large Language Model (LLM via Ollama) to compute a <strong>Semantic Risk & Corporate Anxiety Index</strong>, and displays indicators like ROIC and the Altman Z-Score.
+                </p>
+            </div>
+            <div style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 16px; border-top: 2px solid #b89b64;">
+                <h4 style="margin-top: 0; color: #f8fafc; font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    🏦 Insurer Liquidity & Credit Risk Monitor <span style="background: rgba(184, 155, 100, 0.1); color: #b89b64; padding: 1px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 700;">Sister Simulator</span>
+                </h4>
+                <p style="font-size: 0.8rem; color: #94a3b8; line-height: 1.45; margin: 8px 0 0 0;">
+                    Models institutional credit mismatch. Formulates ordinary least squares (OLS) regressions to analyze how life insurers allocate yield-seeking assets to private credit placements at the risk of asset-liability mismatches (ALM), inspired by <strong>Chicago Fed Working Paper 2025-09</strong>. Deployed at <a href="https://ilcrm.turtlevest.com" target="_blank" style="color: #b89b64; text-decoration: underline; font-weight: 600;">ilcrm.turtlevest.com</a>.
+                </p>
+            </div>
         </div>
     </div>
-</div>
-""", unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
 
 st.markdown("---")
 
