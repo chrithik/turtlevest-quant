@@ -233,8 +233,8 @@ st.write("Our data scheduler is optimized to scrape, clean, calculate, and synth
 st.markdown("""
 ```text
 +-----------------------+     +------------------------+     +-------------------------+
-| SEC Edgar RSS Feed    |     | FMP Stable REST API    |     | Google Gemini API       |
-| (Form 8-K debt scan)  |     | (Financial Statements) |     | (Catalyst Analysis)     |
+| SEC EDGAR RSS Feed    |     | FMP API                |     | LLM                     |
+| (Regulatory Filings)  |     | (Financial Statements) |     | (Risk Factor Analysis)  |
 +-----------+-----------+     +-----------+------------+     +------------+------------+
             |                             |                               |
             |                             v                               |
@@ -245,7 +245,7 @@ st.markdown("""
                                           |
                                           v
                               +-----------------------+
-                              | Postgres Database Log |
+                              | Database              |
                               +-----------+-----------+
                                           |
                                           v
@@ -254,15 +254,6 @@ st.markdown("""
                               +-----------------------+
 ```
 """)
-
-st.subheader("🔒 SEC Scraper Rate Limits & User-Agent Compliance")
-st.code("""
-# Custom SEC Compliant headers used in scraping scripts:
-headers = {
-    "User-Agent": "TurtleVest Researcher student@turtlevest.com",
-    "Accept-Encoding": "gzip, deflate"
-}
-""", language="python")
 
 # ----------------------------------------------------
 # 5. DISCLAIMER

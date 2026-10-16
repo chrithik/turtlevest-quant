@@ -50,11 +50,12 @@ def get_daily_target_tickers():
         
     return FALLBACK_BASKET[:10]
 
-def run_ingestion():
-    print("🚀 Starting TurtleVest Quant Dynamic Overnight Ingestion Script...")
+def run_ingestion(custom_tickers=None):
+    print("🚀 Starting TurtleVest Quant Dynamic Ingestion Script...")
     
     # 1. Identify daily tickers
-    target_tickers = get_daily_target_tickers()
+    target_tickers = [t.upper().strip() for t in custom_tickers] if custom_tickers else get_daily_target_tickers()
+    print(f"🎯 Target tickers to process: {', '.join(target_tickers)}")
     
     # 2. Check if local Node.js scraper API is online
     api_base = os.environ.get("SCRAPER_API_URL", "")
@@ -74,8 +75,8 @@ def run_ingestion():
         # Trigger SEC Filing Insight (Postgres Cache populates on Node server side)
         try:
             print(f"  👉 Triggering SEC Filing Scrape & Ollama NLP analysis for {ticker}...")
-            payload = {"ticker": ticker, "force": True, "ollamaUrl": ollama_url, "model": "qwen-32k"}
-            res_insights = requests.post(f"{api_base}/api/sec/insights", json=payload, timeout=120)
+            payload = {"ticker": ticker, "force": True, "ollamaUrl": ollama_url, "model": "qwen3-32k:latest"}
+            res_insights = requests.post(f"{api_base}/api/sec/insights", json=payload, timeout=300)
             
             if res_insights.ok:
                 print(f"  ✅ Successfully processed and cached SEC filing insights for {ticker}.")
@@ -103,4 +104,5 @@ def run_ingestion():
     print("\n🏁 Daily ingestion successfully completed!")
 
 if __name__ == "__main__":
-    run_ingestion()
+    cli_tickers = sys.argv[1:] if len(sys.argv) > 1 else None
+    run_ingestion(cli_tickers)

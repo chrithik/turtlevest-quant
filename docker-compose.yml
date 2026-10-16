@@ -6,9 +6,9 @@ services:
     ports:
       - "8555:8501"
     environment:
-      - DATABASE_URL=postgresql://vivek:reddy22@host.docker.internal:5432/stocksdb
-      - FMP_API_KEY=d298a6129777e8bbc4254b0d4f0e416e
-      - DEVELOPMENT_MODE=false # Set to true to allow live scrapers and local Ollama connections during testing
+      - DATABASE_URL=${DATABASE_URL}
+      - FMP_API_KEY=${FMP_API_KEY}
+      - DEVELOPMENT_MODE=false # Set to true to allow pipeline scrapers and local model connections during testing
     env_file:
       - .env
     extra_hosts:
@@ -19,10 +19,18 @@ services:
     container_name: turtlevest-worker
     restart: always
     environment:
-      - DATABASE_URL=postgresql://vivek:reddy22@host.docker.internal:5432/stocksdb
-      - FMP_API_KEY=d298a6129777e8bbc4254b0d4f0e416e
+      - DATABASE_URL=${DATABASE_URL}
+      - FMP_API_KEY=${FMP_API_KEY}
     env_file:
       - .env
     extra_hosts:
       - "host.docker.internal:host-gateway"
     command: ["python", "run_scheduler.py"]
+
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflare-tunnel-quant
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token eyJhIjoiOWI3MjIzMDQ1NWE1NDFhODgzZWRmMDFkNWYxODFlOTkiLCJ0IjoiMzVmZGYyNzEtNmIxYS00OGY4LTkwNTgtZDJmZTFmZjE5Nzc4IiwicyI6Ik0ySXdZV1EyWldNdE5UazJOeTAwT1dRNExXSXdNekV0WmpreVlUWTBaV1l4WXpGaiJ9
+    depends_on:
+      - web
