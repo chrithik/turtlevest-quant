@@ -189,20 +189,15 @@ col_title, col_logo = st.columns([4.2, 0.8])
 with col_title:
     st.markdown("""
     <div style="background: linear-gradient(135deg, rgba(30, 41, 59, 0.4), rgba(15, 23, 42, 0.5)); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 20px; margin-top: -10px; margin-bottom: 15px; border-left: 5px solid #10b981;">
-        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 8px;">
-            <div style="display: flex; align-items: center; gap: 8px;">
-                <span style="font-size: 1.6rem; font-weight: 800; letter-spacing: 0.5px; background: linear-gradient(90deg, #f8fafc, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">TurtleVest</span>
-                <span style="font-size: 0.75rem; background: rgba(16, 185, 129, 0.12); color: #10b981; padding: 2px 6px; border-radius: 4px; font-weight: 600; border: 1px solid rgba(16, 185, 129, 0.2);">QUANT TERMINAL</span>
-            </div>
-            <span style="background: rgba(184, 155, 100, 0.12); color: #b89b64; padding: 3px 10px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; border: 1px solid rgba(184, 155, 100, 0.25); letter-spacing: 0.5px;">
-                🎓 THE GRADUATION NARRATIVE
-            </span>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <span style="font-size: 1.6rem; font-weight: 800; letter-spacing: 0.5px; background: linear-gradient(90deg, #f8fafc, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">TurtleVest</span>
+            <span style="font-size: 0.75rem; background: rgba(16, 185, 129, 0.12); color: #10b981; padding: 2px 6px; border-radius: 4px; font-weight: 600; border: 1px solid rgba(16, 185, 129, 0.2);">QUANT TERMINAL</span>
         </div>
         <h2 style="font-size: 1.45rem; font-family: 'serif'; color: #f8fafc; margin: 5px 0; font-weight: 700;">
             Disciplined Investing, Driven by Quantitative Disclosures
         </h2>
         <p style="margin: 0; font-size: 0.88rem; color: #94a3b8; line-height: 1.5; font-family: 'sans-serif';">
-            Graduating from foundational financial literacy on the TurtleVest iOS app to institutional-grade equity analysis. Powered by raw SEC EDGAR data pipelines, TurtleVest Quant strips away market noise to track corporate efficiency, capital expenditures, and institutional disclosures.
+            Bridging foundational financial literacy on the TurtleVest iOS app with institutional-grade equity analysis. Powered by raw SEC EDGAR data pipelines, TurtleVest Quant strips away market noise to track corporate efficiency, capital expenditures, and institutional disclosures.
         </p>
     </div>
     """, unsafe_allow_html=True)
