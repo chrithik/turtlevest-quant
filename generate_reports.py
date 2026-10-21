@@ -9,9 +9,9 @@ load_dotenv()
 
 # Fallback basket of core companies to pre-cache if API discovery fails
 FALLBACK_BASKET = [
-    "MSFT", "AAPL", "NVDA", "AVGO", "GOOGL", 
+    "MSFT", "AAPL", "NVDA", "XOM", "GOOGL", 
     "META", "AMZN", "TSLA", "JPM", "LLY", 
-    "CRWV", "UNH", "ABBV", "XOM", "GE", "COST", 
+    "CRWV", "UNH", "ABBV", "GE", "COST", 
     "WMT", "HD", "MA", "V", "NFLX"
 ]
 

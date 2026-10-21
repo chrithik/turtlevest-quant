@@ -266,7 +266,7 @@ st.write("Select an equity ticker to inspect fundamental metrics and parsed SEC 
 # Query cached symbols from the database or fall back to the index basket if offline
 cached_symbols = get_cached_tickers()
 if not cached_symbols:
-    cached_symbols = ["AAPL", "AMZN", "AVGO", "CRWV", "GOOGL", "JPM", "LLY", "META", "MSFT", "NVDA", "TSLA"]
+    cached_symbols = ["AAPL", "AMZN", "CRWV", "GOOGL", "JPM", "LLY", "META", "MSFT", "NVDA", "TSLA", "XOM"]
 elif "CRWV" not in cached_symbols:
     cached_symbols.append("CRWV")
     cached_symbols.sort()
@@ -328,7 +328,8 @@ def get_metrics(symbol):
         "WMT": {"ROIC": "10.8%", "CapEx_Eff": "2.3x", "FCF_Margin": "4.5%", "Altman_Z": "3.90", "status": "Stable Retail"},
         "LLY": {"ROIC": "19.5%", "CapEx_Eff": "5.4x", "FCF_Margin": "18.2%", "Altman_Z": "5.60", "status": "Strong Healthcare"},
         "JPM": {"ROIC": "15.4% (ROE)", "CapEx_Eff": "34.0% (Efficiency)", "FCF_Margin": "N/A (Banking)", "Altman_Z": "N/A (Banking)", "status": "Systemic Core"},
-        "CRWV": {"ROIC": "-0.4%", "CapEx_Eff": "200.9%", "FCF_Margin": "-40.1%", "Altman_Z": "2.45", "status": "Hyper-Growth AI Infra"}
+        "CRWV": {"ROIC": "-0.4%", "CapEx_Eff": "200.9%", "FCF_Margin": "-40.1%", "Altman_Z": "2.45", "status": "Hyper-Growth AI Infra"},
+        "XOM": {"ROIC": "14.8%", "CapEx_Eff": "7.5%", "FCF_Margin": "10.5%", "Altman_Z": "4.15", "status": "Disciplined Energy"}
     }
     
     try:
@@ -1129,6 +1130,21 @@ def get_mock_sec_insight(symbol):
             "Substantial debt leverage incurred to finance data center construction and GPU clusters increases our vulnerability to interest rate shifts. "
             "Power supply constraints, grid interconnection delays, and data center real estate shortages could delay facility commissioning and harm our operating results."
         )
+    elif symbol == "XOM":
+        summary = (
+            "Executive Summary:\n"
+            "Exxon Mobil Corporation (NYSE: XOM) demonstrates robust cash generation anchored by disciplined capital allocation across low-cost upstream assets, notably the offshore Guyana Stabroek block and integrated Permian Basin operations following the Pioneer Natural Resources acquisition.\n\n"
+            "**Key Catalysts & Risks**:\n"
+            "- Upstream volume expansion in deepwater Guyana and the Permian Basin delivering industry-leading breakevens (<$35/barrel).\n"
+            "- Structural cost reductions and downstream refinery integration supporting strong free cash flow and dividend coverage across commodity cycles.\n"
+            "- Crude oil and natural gas price volatility, environmental regulatory mandates, and long-term global energy transition dynamics."
+        )
+        risk_factors = (
+            "Our business is heavily dependent on the prices of crude oil, natural gas, and refined petroleum products, which are subject to significant global supply, demand, and geopolitical volatility. "
+            "We face operational risks inherent in deepwater drilling, refining complex operations, and global transport logistics. "
+            "Climate change policies, carbon pricing initiatives, and regulatory limits on greenhouse gas emissions could reduce global demand for hydrocarbons, impose material compliance costs, or restrict access to capital. "
+            "Geopolitical developments, sanctions, and resource nationalism in foreign operating jurisdictions create risks of expropriation, contract renegotiation, or production interruption."
+        )
     elif is_financial:
         summary = (
             "Executive Summary:\n"
@@ -1287,6 +1303,10 @@ def get_narrative_sentiment(symbol):
         "CRWV": {
             "verdict": "Exponential GPU cluster expansion driving hyper-growth, balanced against high capital intensity and financing leverage.",
             "summary": "CoreWeave is leading the specialized AI cloud infrastructure market with massive compute buildouts, positioning it as a critical supplier for frontier AI workloads."
+        },
+        "XOM": {
+            "verdict": "Capital-disciplined upstream expansion in Guyana and the Permian Basin drives industry-leading free cash flow resilience.",
+            "summary": "ExxonMobil maintains strict capital expenditure envelopes while returning substantial cash to shareholders via dividends and repurchases, underpinned by low-cost-of-supply reserves."
         }
     }
     return narratives.get(symbol, {
