@@ -166,80 +166,6 @@ st.markdown("""
         margin-bottom: 16px;
         border: 1px solid rgba(16, 185, 129, 0.2);
     }
-    
-    /* Ticker Symbol Selectbox Visibility & Accent Border */
-    div[data-testid="stSelectbox"] {
-        margin-top: 4px;
-        margin-bottom: 8px;
-    }
-    
-    div[data-testid="stSelectbox"] label,
-    div[data-testid="stSelectbox"] label p {
-        color: #f8fafc !important;
-        font-weight: 700 !important;
-        font-size: 0.95rem !important;
-        letter-spacing: 0.3px !important;
-        margin-bottom: 6px !important;
-    }
-    
-    /* Select Input Box Container with High-Visibility Emerald Border */
-    div[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
-        background-color: #1e293b !important;
-        border: 2px solid #10b981 !important;
-        border-radius: 8px !important;
-        min-height: 44px !important;
-        box-shadow: 0 0 12px rgba(16, 185, 129, 0.25) !important;
-        cursor: pointer !important;
-        transition: all 0.2s ease-in-out !important;
-    }
-    
-    div[data-testid="stSelectbox"] div[data-baseweb="select"] > div:hover {
-        border-color: #34d399 !important;
-        background-color: #24344d !important;
-        box-shadow: 0 0 18px rgba(16, 185, 129, 0.45) !important;
-    }
-    
-    div[data-testid="stSelectbox"] div[data-baseweb="select"] > div:focus-within {
-        border-color: #34d399 !important;
-        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3), 0 0 20px rgba(16, 185, 129, 0.4) !important;
-    }
-    
-    /* Selected Value Text */
-    div[data-testid="stSelectbox"] div[data-baseweb="select"] * {
-        color: #f8fafc !important;
-        font-weight: 700 !important;
-    }
-    
-    /* Dropdown Chevron Arrow */
-    div[data-testid="stSelectbox"] div[data-baseweb="select"] svg {
-        fill: #10b981 !important;
-        color: #10b981 !important;
-    }
-    
-    /* Dropdown Menu Options (Popover) */
-    div[data-baseweb="popover"],
-    div[data-baseweb="popover"] > div,
-    ul[data-baseweb="menu"] {
-        background-color: #1e293b !important;
-        border: 1.5px solid #10b981 !important;
-        border-radius: 8px !important;
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 0 15px rgba(16, 185, 129, 0.25) !important;
-    }
-    
-    li[data-baseweb="menu-item"],
-    div[data-baseweb="menu-item"] {
-        background-color: #1e293b !important;
-        color: #f8fafc !important;
-        font-size: 0.95rem !important;
-        font-weight: 600 !important;
-        padding: 8px 14px !important;
-    }
-    
-    li[data-baseweb="menu-item"]:hover,
-    li[data-baseweb="menu-item"][aria-selected="true"] {
-        background-color: rgba(16, 185, 129, 0.2) !important;
-        color: #10b981 !important;
-    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -345,36 +271,20 @@ elif "CRWV" not in cached_symbols:
     cached_symbols.append("CRWV")
     cached_symbols.sort()
 
-# Initialize active ticker in session_state from query params on first load
-if "active_ticker" not in st.session_state:
-    qp_ticker = st.query_params.get("ticker", "NVDA").upper().strip()
-    if qp_ticker in cached_symbols:
-        st.session_state["active_ticker"] = qp_ticker
-    else:
-        st.session_state["active_ticker"] = "NVDA" if "NVDA" in cached_symbols else cached_symbols[0]
+# Find the default index based on the query parameter or default to NVDA
+default_ticker = st.query_params.get("ticker", "NVDA").upper().strip()
+if default_ticker not in cached_symbols:
+    default_ticker = "NVDA" if "NVDA" in cached_symbols else cached_symbols[0]
 
-# Ensure valid ticker selection
-if st.session_state["active_ticker"] not in cached_symbols:
-    st.session_state["active_ticker"] = "NVDA" if "NVDA" in cached_symbols else cached_symbols[0]
+default_index = cached_symbols.index(default_ticker)
 
-def on_ticker_select():
-    selected = st.session_state.get("ticker_widget")
-    if selected:
-        st.session_state["active_ticker"] = selected
-        st.query_params["ticker"] = selected
-
-# Render compact dropdown in a narrow column (prevents full widescreen stretching)
-col_sel, _ = st.columns([1.2, 3.8])
-with col_sel:
-    ticker = st.selectbox(
-        "Select Ticker Symbol:",
-        options=cached_symbols,
-        index=cached_symbols.index(st.session_state["active_ticker"]),
-        key="ticker_widget",
-        on_change=on_ticker_select
-    )
-    st.session_state["active_ticker"] = ticker
-    st.query_params["ticker"] = ticker
+ticker = st.selectbox(
+    "Select Ticker Symbol:",
+    options=cached_symbols,
+    index=default_index,
+    key="ticker"
+)
+st.query_params["ticker"] = ticker
 
 # Informational banner showing pre-indexed database status and available symbols in one sleek line
 index_list_str = ", ".join(cached_symbols)
