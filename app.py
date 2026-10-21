@@ -166,6 +166,80 @@ st.markdown("""
         margin-bottom: 16px;
         border: 1px solid rgba(16, 185, 129, 0.2);
     }
+    
+    /* Ticker Symbol Selectbox Visibility & Accent Border */
+    div[data-testid="stSelectbox"] {
+        margin-top: 4px;
+        margin-bottom: 8px;
+    }
+    
+    div[data-testid="stSelectbox"] label,
+    div[data-testid="stSelectbox"] label p {
+        color: #f8fafc !important;
+        font-weight: 700 !important;
+        font-size: 0.95rem !important;
+        letter-spacing: 0.3px !important;
+        margin-bottom: 6px !important;
+    }
+    
+    /* Select Input Box Container with High-Visibility Emerald Border */
+    div[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
+        background-color: #1e293b !important;
+        border: 2px solid #10b981 !important;
+        border-radius: 8px !important;
+        min-height: 44px !important;
+        box-shadow: 0 0 12px rgba(16, 185, 129, 0.25) !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease-in-out !important;
+    }
+    
+    div[data-testid="stSelectbox"] div[data-baseweb="select"] > div:hover {
+        border-color: #34d399 !important;
+        background-color: #24344d !important;
+        box-shadow: 0 0 18px rgba(16, 185, 129, 0.45) !important;
+    }
+    
+    div[data-testid="stSelectbox"] div[data-baseweb="select"] > div:focus-within {
+        border-color: #34d399 !important;
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3), 0 0 20px rgba(16, 185, 129, 0.4) !important;
+    }
+    
+    /* Selected Value Text */
+    div[data-testid="stSelectbox"] div[data-baseweb="select"] * {
+        color: #f8fafc !important;
+        font-weight: 700 !important;
+    }
+    
+    /* Dropdown Chevron Arrow */
+    div[data-testid="stSelectbox"] div[data-baseweb="select"] svg {
+        fill: #10b981 !important;
+        color: #10b981 !important;
+    }
+    
+    /* Dropdown Menu Options (Popover) */
+    div[data-baseweb="popover"],
+    div[data-baseweb="popover"] > div,
+    ul[data-baseweb="menu"] {
+        background-color: #1e293b !important;
+        border: 1.5px solid #10b981 !important;
+        border-radius: 8px !important;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 0 15px rgba(16, 185, 129, 0.25) !important;
+    }
+    
+    li[data-baseweb="menu-item"],
+    div[data-baseweb="menu-item"] {
+        background-color: #1e293b !important;
+        color: #f8fafc !important;
+        font-size: 0.95rem !important;
+        font-weight: 600 !important;
+        padding: 8px 14px !important;
+    }
+    
+    li[data-baseweb="menu-item"]:hover,
+    li[data-baseweb="menu-item"][aria-selected="true"] {
+        background-color: rgba(16, 185, 129, 0.2) !important;
+        color: #10b981 !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
