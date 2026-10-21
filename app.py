@@ -240,7 +240,7 @@ with st.expander("ℹ️ About the Platform & Quantitative Research Portfolio", 
                     📈 TurtleVest Quant Terminal <span style="background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 1px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 700;">Active Site</span>
                 </h4>
                 <p style="font-size: 0.8rem; color: #94a3b8; line-height: 1.45; margin: 8px 0 0 0;">
-                    Focuses on corporate equity valuation and text parsing. Ingests raw SEC Form 10-K/Q filings, utilizes a Large Language Model (LLM) to compute a <strong>Semantic Risk & Corporate Anxiety Index</strong>, and displays indicators like ROIC and the Altman Z-Score.
+                    Focuses on corporate fundamental analysis and natural language processing. Synthesizes multi-year SEC Form 10-K annual trends with the latest interim Form 10-Q quarterly disclosures, utilizing an LLM to parse real-time executive risk sentiment and tracking key capital allocation metrics (ROIC, CapEx Efficiency, Altman Z-Score).
                 </p>
             </div>
             <div style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 16px; border-top: 2px solid #b89b64;">
@@ -481,6 +481,34 @@ def get_capex_trend(symbol):
                             "CapEx %": round(pct, 2)
                         })
                 df = pd.DataFrame(records).sort_values("Year")
+                
+                # If latest annual statement is before 2026, synthesize 2026 (TTM) from the last 4 Form 10-Q quarters
+                if not df.empty and df.iloc[-1]["Year"] != "2026":
+                    try:
+                        url_q_inc = f"https://financialmodelingprep.com/stable/income-statement?symbol={symbol}&period=quarter&limit=4&apikey={api_key}"
+                        url_q_cf = f"https://financialmodelingprep.com/stable/cash-flow-statement?symbol={symbol}&period=quarter&limit=4&apikey={api_key}"
+                        res_q_inc = requests.get(url_q_inc, timeout=4)
+                        res_q_cf = requests.get(url_q_cf, timeout=4)
+                        if res_q_inc.ok and res_q_cf.ok:
+                            q_inc = res_q_inc.json()
+                            q_cf = res_q_cf.json()
+                            if isinstance(q_inc, list) and isinstance(q_cf, list) and len(q_inc) >= 4 and len(q_cf) >= 4:
+                                latest_q_date = q_inc[0].get("date", "")
+                                if "2026" in latest_q_date:
+                                    ttm_rev = sum(float(r.get("revenue") or 0) for r in q_inc[:4])
+                                    ttm_capex = sum(abs(float(r.get("capitalExpenditure") or 0)) for r in q_cf[:4])
+                                    if ttm_rev > 0:
+                                        pct = (ttm_capex / ttm_rev) * 100
+                                        ttm_row = pd.DataFrame([{
+                                            "Year": "2026 (TTM)",
+                                            "Revenue": ttm_rev,
+                                            "CapEx": ttm_capex,
+                                            "CapEx %": round(pct, 2)
+                                        }])
+                                        df = pd.concat([df, ttm_row], ignore_index=True)
+                    except Exception:
+                        pass
+                
                 if len(df) > 1:
                     df["Revenue Growth %"] = df["Revenue"].pct_change() * 100
                     df["CapEx Growth %"] = df["CapEx"].pct_change() * 100
@@ -494,16 +522,17 @@ def get_capex_trend(symbol):
         pass
     
     # Fallback mock 5-year trend if API fails
-    years = [str(2021 + i) for i in range(5)]
+    years = [str(2021 + i) for i in range(5)] + ["2026 (TTM)"]
     np.random.seed(abs(hash(symbol)) % 1000 + 42)
     base_pct = 4.5 if symbol != "NVDA" else 1.8
-    pcts = base_pct + np.random.normal(0, 0.5, 5)
+    pcts = list(base_pct + np.random.normal(0, 0.5, 5))
+    pcts.append(round(pcts[-1] * 1.05, 2))
     
     base_rev = (50.0 + np.random.randint(10, 200)) * 1e9 # billions
     revs = []
     capexs = []
     curr_rev = base_rev
-    for i in range(5):
+    for i in range(6):
         growth = np.random.normal(0.08, 0.04) # ~8% growth
         curr_rev *= (1.0 + growth)
         revs.append(curr_rev)
@@ -515,8 +544,8 @@ def get_capex_trend(symbol):
         "CapEx": capexs,
         "CapEx %": np.round(pcts, 2)
     })
-    df["Revenue Growth %"] = df["Revenue"].pct_change().fillna(0.0).round(4) * 100
-    df["CapEx Growth %"] = df["CapEx"].pct_change().fillna(0.0).round(4) * 100
+    df["Revenue Growth %"] = df["Revenue"].pct_change().fillna(0.0).round(2) * 100
+    df["CapEx Growth %"] = df["CapEx"].pct_change().fillna(0.0).round(2) * 100
     return df
 
 # Helper function to get 5-year Bank Operating Efficiency / Overhead Ratio trend
@@ -544,6 +573,29 @@ def get_bank_efficiency_trend(symbol):
                         })
                 if records:
                     df = pd.DataFrame(records).sort_values("Year")
+                    # If latest annual statement is before 2026, synthesize 2026 (TTM) from the last 4 Form 10-Q quarters
+                    if not df.empty and df.iloc[-1]["Year"] != "2026":
+                        try:
+                            url_q_inc = f"https://financialmodelingprep.com/stable/income-statement?symbol={symbol}&period=quarter&limit=4&apikey={api_key}"
+                            res_q_inc = requests.get(url_q_inc, timeout=4)
+                            if res_q_inc.ok:
+                                q_inc = res_q_inc.json()
+                                if isinstance(q_inc, list) and len(q_inc) >= 4:
+                                    latest_q_date = q_inc[0].get("date", "")
+                                    if "2026" in latest_q_date:
+                                        ttm_rev = sum(float(r.get("revenue") or 0) for r in q_inc[:4])
+                                        ttm_exp = sum(float(r.get("operatingExpenses") or r.get("costAndExpenses") or 0) for r in q_inc[:4])
+                                        if ttm_rev > 0 and ttm_exp > 0:
+                                            ttm_row = pd.DataFrame([{
+                                                "Year": "2026 (TTM)",
+                                                "Revenue": ttm_rev,
+                                                "Operating Expense": ttm_exp,
+                                                "Efficiency Ratio %": round((ttm_exp / ttm_rev) * 100, 2)
+                                            }])
+                                            df = pd.concat([df, ttm_row], ignore_index=True)
+                        except Exception:
+                            pass
+
                     if len(df) > 1:
                         df["Revenue Growth %"] = df["Revenue"].pct_change() * 100
                         df["Expense Growth %"] = df["Operating Expense"].pct_change() * 100
@@ -564,16 +616,17 @@ def get_bank_efficiency_trend(symbol):
             {"Year": "2023", "Revenue": 236.273e9, "Operating Expense": 84.058e9, "Efficiency Ratio %": 35.58, "Revenue Growth %": 53.60, "Expense Growth %": 11.74},
             {"Year": "2024", "Revenue": 270.789e9, "Operating Expense": 83.704e9, "Efficiency Ratio %": 30.91, "Revenue Growth %": 14.61, "Expense Growth %": -0.42},
             {"Year": "2025", "Revenue": 279.745e9, "Operating Expense": 95.012e9, "Efficiency Ratio %": 33.96, "Revenue Growth %": 3.31, "Expense Growth %": 13.51},
+            {"Year": "2026 (TTM)", "Revenue": 301.922e9, "Operating Expense": 105.444e9, "Efficiency Ratio %": 34.92, "Revenue Growth %": 7.93, "Expense Growth %": 10.98},
         ]
         return pd.DataFrame(data)
     else:
-        years = [str(2021 + i) for i in range(5)]
+        years = [str(2021 + i) for i in range(5)] + ["2026 (TTM)"]
         np.random.seed(abs(hash(symbol)) % 1000 + 101)
         base_rev = 100e9
         revs, exps, ratios = [], [], []
         curr_rev = base_rev
         curr_exp = base_rev * 0.45
-        for i in range(5):
+        for i in range(6):
             curr_rev *= (1.0 + np.random.normal(0.06, 0.02))
             curr_exp *= (1.0 + np.random.normal(0.04, 0.02))
             revs.append(curr_rev)
