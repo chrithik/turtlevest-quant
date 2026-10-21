@@ -266,7 +266,7 @@ st.write("Select an equity ticker to inspect fundamental metrics and parsed SEC 
 # Query cached symbols from the database or fall back to the index basket if offline
 cached_symbols = get_cached_tickers()
 if not cached_symbols:
-    cached_symbols = ["AAPL", "AMZN", "CRWV", "GOOGL", "JPM", "LLY", "META", "MSFT", "NVDA", "TSLA", "XOM"]
+    cached_symbols = ["AAPL", "AMZN", "CRWV", "GOOGL", "JPM", "LLY", "META", "MSFT", "NVDA", "TSLA", "WMT", "XOM"]
 elif "CRWV" not in cached_symbols:
     cached_symbols.append("CRWV")
     cached_symbols.sort()
@@ -328,7 +328,7 @@ def get_metrics(symbol):
         "WMT": {"ROIC": "10.8%", "CapEx_Eff": "2.3x", "FCF_Margin": "4.5%", "Altman_Z": "3.90", "status": "Stable Retail"},
         "LLY": {"ROIC": "19.5%", "CapEx_Eff": "5.4x", "FCF_Margin": "18.2%", "Altman_Z": "5.60", "status": "Strong Healthcare"},
         "JPM": {"ROIC": "15.4% (ROE)", "CapEx_Eff": "34.0% (Efficiency)", "FCF_Margin": "N/A (Banking)", "Altman_Z": "N/A (Banking)", "status": "Systemic Core"},
-        "CRWV": {"ROIC": "-0.4%", "CapEx_Eff": "200.9%", "FCF_Margin": "-40.1%", "Altman_Z": "2.45", "status": "Hyper-Growth AI Infra"},
+        "CRWV": {"ROIC": "-0.4%", "CapEx_Eff": "200.9%", "FCF_Margin": "-40.1%", "Altman_Z": "0.13", "status": "Hyper-Growth AI Infra (High Leverage)"},
         "XOM": {"ROIC": "14.8%", "CapEx_Eff": "7.5%", "FCF_Margin": "10.5%", "Altman_Z": "4.15", "status": "Disciplined Energy"}
     }
     
@@ -2053,7 +2053,7 @@ with col_tech2:
 with col_tech3:
     st.markdown("""
     ##### 🤖 Agent-Assisted Engineering
-    Developed using an agent-first workflow with <span style="color: #10b981; font-weight: 700;">Google Antigravity</span>. As a business and quantitative finance researcher, the AI agent served as an interactive engineering collaborator—accelerating the translation of academic financial models (Altman Z credit risk, DuPont ROIC, and CapEx cycle tracking) into production code, while assisting in the extraction and structuring of deep corporate research notes (such as Apple's asset-light supply chain, ExxonMobil's low-breakeven upstream assets, and CoreWeave's GPU debt financing).
+    Developed using an agent-first workflow with <span style="color: #10b981; font-weight: 700;">Google Antigravity</span>. As a business and quantitative finance researcher, the AI agent served as an interactive engineering collaborator—accelerating the translation of academic financial models (Altman Z credit risk, DuPont ROIC, and CapEx cycle tracking) into production code, while assisting in the extraction and structuring of deep corporate research notes (such as Apple's asset-light supply chain, ExxonMobil's low-breakeven upstream assets, Walmart's automated retail supply chain, and CoreWeave's debt-financed GPU expansion with an Altman Z-Score of 0.13 in the Distress Zone).
     """, unsafe_allow_html=True)
 
 # ----------------------------------------------------
