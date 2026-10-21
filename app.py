@@ -591,12 +591,12 @@ def get_bank_efficiency_trend(symbol):
 
 def get_capex_allocation_insight(symbol, recent_capex_pct=None):
     """
-    Returns institutional capital allocation and operating architecture analysis
-    explaining why a firm's CapEx-to-Revenue ratio exists in its current range.
+    Returns student research notes on capital allocation and operating architecture,
+    explaining the economic business model behind each firm's CapEx-to-Revenue ratio.
     """
     insights = {
         "NVDA": {
-            "title": "🔍 Institutional Deep Dive: NVIDIA's Fabless Semiconductor Architecture",
+            "title": "🔍 Research Notes: NVIDIA's Fabless Semiconductor Architecture",
             "model_type": "Fabless Semiconductor / TSMC Foundry Partner",
             "overview": "NVIDIA operates a pure fabless semiconductor model, generating industry-leading 75%+ gross margins while delegating multi-billion-dollar semiconductor foundry capital expenditures to TSMC.",
             "drivers": [
@@ -606,7 +606,7 @@ def get_capex_allocation_insight(symbol, recent_capex_pct=None):
             ]
         },
         "AAPL": {
-            "title": "🔍 Institutional Deep Dive: Apple's Asset-Light Global Supply Chain",
+            "title": "🔍 Research Notes: Apple's Asset-Light Global Supply Chain",
             "model_type": "Asset-Light Consumer Hardware & Services Ecosystem",
             "overview": "Apple maintains an ultra-low CapEx footprint (~2.5%–3.5% of revenue) by outsourcing hardware manufacturing and assembly to third-party partners (Foxconn, Pegatron).",
             "drivers": [
@@ -616,7 +616,7 @@ def get_capex_allocation_insight(symbol, recent_capex_pct=None):
             ]
         },
         "MSFT": {
-            "title": "🔍 Institutional Deep Dive: Microsoft's Frontier AI Hyperscale Scaling",
+            "title": "🔍 Research Notes: Microsoft's Frontier AI Hyperscale Scaling",
             "model_type": "Frontier AI Cloud & Custom Silicon Hyperscaler",
             "overview": "Microsoft operates a capital-intensive cloud infrastructure model (~25%–35% of revenue), pouring tens of billions into global data centers, liquid cooling, and custom AI silicon (Maia).",
             "drivers": [
@@ -626,7 +626,7 @@ def get_capex_allocation_insight(symbol, recent_capex_pct=None):
             ]
         },
         "GOOGL": {
-            "title": "🔍 Institutional Deep Dive: Alphabet's Proprietary TPU & Fiber Infrastructure",
+            "title": "🔍 Research Notes: Alphabet's Proprietary TPU & Fiber Infrastructure",
             "model_type": "Custom Silicon (TPU) & Global Network Hyperscaler",
             "overview": "Alphabet reinvests ~20%–30% of revenue into physical infrastructure, deploying custom Tensor Processing Units (TPUs) and proprietary transoceanic fiber-optic networks.",
             "drivers": [
@@ -636,7 +636,7 @@ def get_capex_allocation_insight(symbol, recent_capex_pct=None):
             ]
         },
         "META": {
-            "title": "🔍 Institutional Deep Dive: Meta's Open-Source AI Compute Architecture",
+            "title": "🔍 Research Notes: Meta's Open-Source AI Compute Architecture",
             "model_type": "Open-Source AI Compute & Custom Silicon Architecture",
             "overview": "Meta has expanded its CapEx intensity (~25%–35% of revenue) to construct world-leading AI training superclusters and custom MTIA silicon for recommendation engines and Llama models.",
             "drivers": [
@@ -646,7 +646,7 @@ def get_capex_allocation_insight(symbol, recent_capex_pct=None):
             ]
         },
         "AMZN": {
-            "title": "🔍 Institutional Deep Dive: Amazon's Dual-Engine Cloud & Logistics Architecture",
+            "title": "🔍 Research Notes: Amazon's Dual-Engine Cloud & Logistics Architecture",
             "model_type": "Dual Cloud Infrastructure & Automated Logistics Engine",
             "overview": "Amazon maintains a dual capital allocation engine (~10%–15% of revenue) split between AWS generative AI data centers and nationwide automated fulfillment logistics.",
             "drivers": [
@@ -656,7 +656,7 @@ def get_capex_allocation_insight(symbol, recent_capex_pct=None):
             ]
         },
         "TSLA": {
-            "title": "🔍 Institutional Deep Dive: Tesla's Vertically Integrated Gigafactories & AI Compute",
+            "title": "🔍 Research Notes: Tesla's Vertically Integrated Gigafactories & AI Compute",
             "model_type": "Vertically Integrated Hardware, Energy & Autonomous Compute",
             "overview": "Tesla operates a vertically integrated capital model (~8%–11% of revenue), directing capital into global Gigafactories, custom 4680 battery cell lines, and the Cortex autonomous AI supercomputer.",
             "drivers": [
@@ -666,7 +666,7 @@ def get_capex_allocation_insight(symbol, recent_capex_pct=None):
             ]
         },
         "CRWV": {
-            "title": "🔍 Institutional Deep Dive: CoreWeave's Pure-Play AI GPU Hyperscaler Expansion",
+            "title": "🔍 Research Notes: CoreWeave's Pure-Play AI GPU Hyperscaler Expansion",
             "model_type": "Specialized Pure-Play GenAI Cloud Infrastructure",
             "overview": "Unlike mature cloud hyperscalers whose CapEx is 25%–40% of revenue, CoreWeave's 271.0% TTM CapEx-to-Revenue ratio reflects a pure-play, front-loaded AI infrastructure expansion.",
             "drivers": [
@@ -676,7 +676,7 @@ def get_capex_allocation_insight(symbol, recent_capex_pct=None):
             ]
         },
         "LLY": {
-            "title": "🔍 Institutional Deep Dive: Eli Lilly's GLP-1 Biomanufacturing Buildout",
+            "title": "🔍 Research Notes: Eli Lilly's GLP-1 Biomanufacturing Buildout",
             "model_type": "Blockbuster Biopharmaceutical & Sterile-Injectable Scale",
             "overview": "Eli Lilly is executing the pharmaceutical sector's most aggressive capital expenditure program (~12%–16% of revenue) to alleviate global shortages for Mounjaro and Zepbound.",
             "drivers": [
@@ -686,7 +686,7 @@ def get_capex_allocation_insight(symbol, recent_capex_pct=None):
             ]
         },
         "AVGO": {
-            "title": "🔍 Institutional Deep Dive: Broadcom's Custom ASIC & Fabless Optical Rails",
+            "title": "🔍 Research Notes: Broadcom's Custom ASIC & Fabless Optical Rails",
             "model_type": "Fabless Custom ASIC & Network Infrastructure Rails",
             "overview": "Broadcom operates a highly disciplined fabless model (~2%–4% of revenue), outsourcing semiconductor fabrication while co-designing custom XPUs (Google TPU, Meta MTIA) and Tomahawk switching silicon.",
             "drivers": [
@@ -696,7 +696,7 @@ def get_capex_allocation_insight(symbol, recent_capex_pct=None):
             ]
         },
         "V": {
-            "title": "🔍 Institutional Deep Dive: Visa's Hyper-Scalable Global Payment Rails",
+            "title": "🔍 Research Notes: Visa's Hyper-Scalable Global Payment Rails",
             "model_type": "Asset-Light Global Transaction Settlement Network",
             "overview": "Visa operates the quintessential asset-light operating model (~1.5%–2.5% of revenue), leveraging globally established clearing and settlement networks (VisaNet).",
             "drivers": [
@@ -706,7 +706,7 @@ def get_capex_allocation_insight(symbol, recent_capex_pct=None):
             ]
         },
         "MA": {
-            "title": "🔍 Institutional Deep Dive: Mastercard's Multi-Rail Payment Network",
+            "title": "🔍 Research Notes: Mastercard's Multi-Rail Payment Network",
             "model_type": "Asset-Light Global Digital Payment Infrastructure",
             "overview": "Mastercard operates an asset-light processing network (~2.0%–3.0% of revenue) with near-zero marginal cost per transaction and high cash flow generation.",
             "drivers": [
@@ -716,7 +716,7 @@ def get_capex_allocation_insight(symbol, recent_capex_pct=None):
             ]
         },
         "NFLX": {
-            "title": "🔍 Institutional Deep Dive: Netflix's Content Amortization vs. Physical CapEx",
+            "title": "🔍 Research Notes: Netflix's Content Amortization vs. Physical CapEx",
             "model_type": "Intangible Content Asset Capitalization Model",
             "overview": "Netflix displays an ultra-low physical CapEx ratio (~1.0% of revenue) because its core capital allocation ($17B+ annually) is intangible content production capitalized and amortized through operating cash flows.",
             "drivers": [
@@ -726,7 +726,7 @@ def get_capex_allocation_insight(symbol, recent_capex_pct=None):
             ]
         },
         "WMT": {
-            "title": "🔍 Institutional Deep Dive: Walmart's Automated Supply Chain & Omni-Fulfillment",
+            "title": "🔍 Research Notes: Walmart's Automated Supply Chain & Omni-Fulfillment",
             "model_type": "Automated Retail Logistics & Omni-Channel Distribution",
             "overview": "Walmart invests ~2.5%–3.5% of revenue into transforming its massive store and distribution network into automated, robot-assisted regional fulfillment centers.",
             "drivers": [
@@ -736,7 +736,7 @@ def get_capex_allocation_insight(symbol, recent_capex_pct=None):
             ]
         },
         "COST": {
-            "title": "🔍 Institutional Deep Dive: Costco's High-Turnover Warehouse Infrastructure",
+            "title": "🔍 Research Notes: Costco's High-Turnover Warehouse Infrastructure",
             "model_type": "High-Volume Membership Warehouse Logistics",
             "overview": "Costco allocates ~2.0%–3.0% of revenue toward steady, self-funded warehouse expansions, depot logistics, and automated bakery/food processing centers.",
             "drivers": [
@@ -746,7 +746,7 @@ def get_capex_allocation_insight(symbol, recent_capex_pct=None):
             ]
         },
         "HD": {
-            "title": "🔍 Institutional Deep Dive: Home Depot's Pro Contractor Supply Chain",
+            "title": "🔍 Research Notes: Home Depot's Pro Contractor Supply Chain",
             "model_type": "Direct-to-Jobsite Pro Logistics & Distribution Hubs",
             "overview": "Home Depot allocates ~2.0%–2.5% of revenue toward building a purpose-built supply chain network capable of direct-to-jobsite delivery for Professional (Pro) contractors.",
             "drivers": [
@@ -756,7 +756,7 @@ def get_capex_allocation_insight(symbol, recent_capex_pct=None):
             ]
         },
         "UNH": {
-            "title": "🔍 Institutional Deep Dive: UnitedHealth's Optum Clinical & Tech Ecosystem",
+            "title": "🔍 Research Notes: UnitedHealth's Optum Clinical & Tech Ecosystem",
             "model_type": "Integrated Healthcare Delivery & Clinical Technology",
             "overview": "UnitedHealth Group allocates ~2.0%–3.0% of revenue to clinical ambulatory care centers, health informatics, and digital healthcare claims infrastructure.",
             "drivers": [
@@ -766,7 +766,7 @@ def get_capex_allocation_insight(symbol, recent_capex_pct=None):
             ]
         },
         "ABBV": {
-            "title": "🔍 Institutional Deep Dive: AbbVie's Biopharmaceutical Scale & Pipeline Expansion",
+            "title": "🔍 Research Notes: AbbVie's Biopharmaceutical Scale & Pipeline Expansion",
             "model_type": "Specialized Biopharmaceutical R&D & Manufacturing",
             "overview": "AbbVie maintains a low physical CapEx profile (~2.0%–3.0% of revenue) while channeling operating cash flows into clinical R&D, patent protection, and strategic biotech acquisitions.",
             "drivers": [
@@ -776,7 +776,7 @@ def get_capex_allocation_insight(symbol, recent_capex_pct=None):
             ]
         },
         "XOM": {
-            "title": "🔍 Institutional Deep Dive: ExxonMobil's Upstream Deepwater & Permian Assets",
+            "title": "🔍 Research Notes: ExxonMobil's Upstream Deepwater & Permian Assets",
             "model_type": "Integrated Upstream Energy & Downstream Refining",
             "overview": "ExxonMobil operates a traditional heavy capital model (~6%–10% of revenue), targeting lowest-cost-of-supply upstream barrels in the Permian Basin, Guyana offshore, and LNG facilities.",
             "drivers": [
@@ -786,7 +786,7 @@ def get_capex_allocation_insight(symbol, recent_capex_pct=None):
             ]
         },
         "GE": {
-            "title": "🔍 Institutional Deep Dive: GE Aerospace's Commercial Propulsion & Fleet Ramp",
+            "title": "🔍 Research Notes: GE Aerospace's Commercial Propulsion & Fleet Ramp",
             "model_type": "Commercial & Defense Aerospace Propulsion Manufacturing",
             "overview": "GE Aerospace allocates ~3.5%–5.0% of revenue to precision aerospace manufacturing, advanced metallurgy, and ceramic matrix composite (CMC) tooling to meet airline delivery backlogs.",
             "drivers": [
@@ -1262,7 +1262,7 @@ if is_bank:
     )
 else:
     alloc_summary = get_capex_allocation_insight(ticker)
-    capex_help = f"CapEx to Revenue ({metrics['CapEx_Eff']}): {alloc_summary['overview']} Inspect the CapEx tab for institutional analysis."
+    capex_help = f"CapEx to Revenue ({metrics['CapEx_Eff']}): {alloc_summary['overview']} Inspect the CapEx tab for research notes & operating architecture."
 
 col_m2.metric(
     label="Bank Efficiency Ratio" if is_bank else "CapEx to Revenue Efficiency", 
@@ -1491,6 +1491,7 @@ if not chart_df.empty:
                 verdict = "World-Class Tier 1 Efficiency (<40%)" if recent_ratio < 40.0 else "Healthy Bank Efficiency (40-60%)" if recent_ratio < 60.0 else "High Overhead (>60%)"
                 st.caption(f"💡 **Operating Leverage Verdict:** The Bank Efficiency Ratio trend is **{trend_str}** over the last 5 years. "
                            f"Current classification: **{verdict}** (Latest Ratio: {recent_ratio:.2f}%).")
+                st.caption("📌 *Note on Fiscal Years: Historical charts reflect completed annual filings (e.g., FY2025 for calendar year-end firms like JPMorgan). Real-time ratios in the top metric cards incorporate the latest quarterly Form 10-Q disclosures.*")
         else:
             st.write(
                 "**Capital Expenditure (CapEx) to Revenue Ratio** maps how many dollars "
@@ -1548,8 +1549,9 @@ if not chart_df.empty:
                 verdict = "Asset-Light / Highly Efficient" if recent_capex_pct < 5.0 else "Moderate Capital Intensity" if recent_capex_pct < 12.0 else "Capital Intensive / Asset-Heavy"
                 st.caption(f"💡 **Efficiency Verdict:** The CapEx/Revenue trend is **{trend_str}** over the last 5 years. "
                            f"Current classification: **{verdict}** (Latest Ratio: {recent_capex_pct:.2f}%).")
+                st.caption("📌 *Note on Fiscal Years: Historical charts reflect completed annual filings (e.g., FY2026 for off-calendar firms like NVIDIA, and FY2025 for calendar year-end firms like CoreWeave). Real-time ratios in the top metric cards incorporate the latest quarterly Form 10-Q disclosures.*")
                 
-                # Render Institutional Capital Allocation Deep Dive
+                # Render Student Research Notes on Capital Allocation
                 alloc_insight = get_capex_allocation_insight(ticker, recent_capex_pct)
                 drivers_html = "".join([f"<li style='margin-bottom: 6px;'><b>{d[0]}:</b> {d[1]}</li>" for d in alloc_insight["drivers"]])
                 st.markdown(f"""
