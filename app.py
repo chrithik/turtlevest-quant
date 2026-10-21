@@ -2066,7 +2066,7 @@ with col_tech2:
 with col_tech3:
     st.markdown("""
     ##### 🤖 Agent-Assisted Engineering
-    Developed using an agent-first workflow with <span style="color: #10b981; font-weight: 700;">Google Antigravity</span>. As a business and quantitative finance researcher, the AI agent served as an interactive engineering collaborator—accelerating the translation of academic financial models (Altman Z credit risk, DuPont ROIC, and CapEx cycle tracking) into production code, while assisting in the extraction and structuring of deep corporate research notes (such as Apple's asset-light supply chain, ExxonMobil's low-breakeven upstream assets, Walmart's automated retail supply chain, and CoreWeave's debt-financed GPU expansion with an Altman Z-Score of 0.13 in the Distress Zone).
+    Developed using an agent-first workflow with <span style="color: #10b981; font-weight: 700;">Google Antigravity</span>. Served as an interactive collaborator for quantitative finance research—accelerating the translation of academic models (Altman Z credit risk, DuPont ROIC, and CapEx cycles) into production algorithms and structured SEC filing insights.
     """, unsafe_allow_html=True)
 
 # ----------------------------------------------------
