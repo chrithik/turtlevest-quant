@@ -589,6 +589,264 @@ def get_bank_efficiency_trend(symbol):
         df["Expense Growth %"] = df["Operating Expense"].pct_change().fillna(0.0).round(2) * 100
         return df
 
+def get_capex_allocation_insight(symbol, recent_capex_pct=None):
+    """
+    Returns institutional capital allocation and operating architecture analysis
+    explaining why a firm's CapEx-to-Revenue ratio exists in its current range.
+    """
+    insights = {
+        "NVDA": {
+            "title": "🔍 Institutional Deep Dive: NVIDIA's Fabless Semiconductor Architecture",
+            "model_type": "Fabless Semiconductor / TSMC Foundry Partner",
+            "overview": "NVIDIA operates a pure fabless semiconductor model, generating industry-leading 75%+ gross margins while delegating multi-billion-dollar semiconductor foundry capital expenditures to TSMC.",
+            "drivers": [
+                ("Outsourced Wafer Fabrication", "TSMC absorbs the massive multi-billion-dollar lithography and cleanroom CapEx, keeping NVIDIA's physical CapEx minimal (~2%–4% of revenue)."),
+                ("Software & Full-Stack Moat", "Capital allocation prioritizes R&D and proprietary software (CUDA, TensorRT, cuDNN) rather than physical real estate or foundries."),
+                ("Exceptional Free Cash Flow Conversion", "Low physical asset intensity yields >45% Free Cash Flow margins, redirected into aggressive share buybacks and strategic AI venture investments.")
+            ]
+        },
+        "AAPL": {
+            "title": "🔍 Institutional Deep Dive: Apple's Asset-Light Global Supply Chain",
+            "model_type": "Asset-Light Consumer Hardware & Services Ecosystem",
+            "overview": "Apple maintains an ultra-low CapEx footprint (~2.5%–3.5% of revenue) by outsourcing hardware manufacturing and assembly to third-party partners (Foxconn, Pegatron).",
+            "drivers": [
+                ("Contract Manufacturing Leverage", "Core assembly, tooling, and physical factory capital are borne by overseas manufacturing partners, keeping Apple's balance sheet asset-light."),
+                ("High-Margin Services Scaling", "Revenue increasingly shifts toward Services (App Store, iCloud, Apple Pay), which operate at 70%+ gross margins with negligible incremental physical CapEx."),
+                ("Massive Shareholder Capital Returns", "Low capital reinvestment needs generate $100B+ annual operating cash flow, fueling the world's largest share repurchase program.")
+            ]
+        },
+        "MSFT": {
+            "title": "🔍 Institutional Deep Dive: Microsoft's Frontier AI Hyperscale Scaling",
+            "model_type": "Frontier AI Cloud & Custom Silicon Hyperscaler",
+            "overview": "Microsoft operates a capital-intensive cloud infrastructure model (~25%–35% of revenue), pouring tens of billions into global data centers, liquid cooling, and custom AI silicon (Maia).",
+            "drivers": [
+                ("GenAI Cloud Infrastructure", "Massive capital deployment into Azure gigawatt-scale data center capacity and high-density GPU compute clusters to support OpenAI and enterprise workloads."),
+                ("Custom Silicon & Networking", "Strategic CapEx deployed into custom in-house accelerators (Maia 100, Cobalt CPUs) to optimize long-term inference cost economics and reduce hardware vendor reliance."),
+                ("Commercial Software Cash Flow Engine", "Immense recurring cash flows from Office 365, Windows, and enterprise software fully self-fund this generational infrastructure buildout.")
+            ]
+        },
+        "GOOGL": {
+            "title": "🔍 Institutional Deep Dive: Alphabet's Proprietary TPU & Fiber Infrastructure",
+            "model_type": "Custom Silicon (TPU) & Global Network Hyperscaler",
+            "overview": "Alphabet reinvests ~20%–30% of revenue into physical infrastructure, deploying custom Tensor Processing Units (TPUs) and proprietary transoceanic fiber-optic networks.",
+            "drivers": [
+                ("Custom ASIC Differentiation", "Heavy capital investments in Google's proprietary TPU generations (v5p, v6 Trillium) drastically lower unit costs for Gemini model training and inference."),
+                ("Global Private Fiber Backbone", "Alphabet owns and leases the world's largest private transoceanic optical network, reducing cloud egress latency and routing costs."),
+                ("Search Cash Flow Self-Financing", "High-margin Google Search advertising generates $100B+ in annual operating cash flow, easily absorbing hyperscale data center expansion.")
+            ]
+        },
+        "META": {
+            "title": "🔍 Institutional Deep Dive: Meta's Open-Source AI Compute Architecture",
+            "model_type": "Open-Source AI Compute & Custom Silicon Architecture",
+            "overview": "Meta has expanded its CapEx intensity (~25%–35% of revenue) to construct world-leading AI training superclusters and custom MTIA silicon for recommendation engines and Llama models.",
+            "drivers": [
+                ("Massive GPU Cluster Buildout", "Multi-billion-dollar investments deploying hundreds of thousands of NVIDIA H100/Blackwell GPUs across custom liquid-cooled data center designs."),
+                ("Custom MTIA Silicon", "Developing internal Meta Training and Inference Accelerators (MTIA) to handle advertising ranking and recommendation workloads at superior power efficiency."),
+                ("Family of Apps Cash Generation", "High-margin digital ad monetization across Instagram, Facebook, and WhatsApp provides pristine balance-sheet liquidity to fund AI capex without debt leverage.")
+            ]
+        },
+        "AMZN": {
+            "title": "🔍 Institutional Deep Dive: Amazon's Dual-Engine Cloud & Logistics Architecture",
+            "model_type": "Dual Cloud Infrastructure & Automated Logistics Engine",
+            "overview": "Amazon maintains a dual capital allocation engine (~10%–15% of revenue) split between AWS generative AI data centers and nationwide automated fulfillment logistics.",
+            "drivers": [
+                ("AWS Cloud & Custom Silicon", "Deploying billions into custom Trainium and Inferentia compute clusters, modular data centers, and renewable energy interconnections."),
+                ("Warehouse Robotics & Delivery Fleets", "Reinvestment into automated robotics fulfillment hubs, regionalized sorting centers, and electric last-mile delivery vehicles."),
+                ("Operating Cash Flow Expansion", "Cloud and high-margin retail advertising profits drive accelerating operating cash flows that comfortably absorb multi-segment capital expenditures.")
+            ]
+        },
+        "TSLA": {
+            "title": "🔍 Institutional Deep Dive: Tesla's Vertically Integrated Gigafactories & AI Compute",
+            "model_type": "Vertically Integrated Hardware, Energy & Autonomous Compute",
+            "overview": "Tesla operates a vertically integrated capital model (~8%–11% of revenue), directing capital into global Gigafactories, custom 4680 battery cell lines, and the Cortex autonomous AI supercomputer.",
+            "drivers": [
+                ("Unboxed Manufacturing & Gigafactories", "Multi-billion-dollar outlays to construct and re-tool high-throughput assembly lines across Austin, Berlin, Shanghai, and Nevada."),
+                ("Full Self-Driving (FSD) & Robotaxi Compute", "Aggressive CapEx allocated to GPU compute clusters (including the 50k+ H100 Cortex supercluster at Giga Texas) for FSD end-to-end neural net training."),
+                ("Energy Storage Scaling", "Ramping dedicated Megapack Lathrop and Shanghai Megafactories, capturing high-margin utility-scale grid stabilization demand.")
+            ]
+        },
+        "CRWV": {
+            "title": "🔍 Institutional Deep Dive: CoreWeave's Pure-Play AI GPU Hyperscaler Expansion",
+            "model_type": "Specialized Pure-Play GenAI Cloud Infrastructure",
+            "overview": "Unlike mature cloud hyperscalers whose CapEx is 25%–40% of revenue, CoreWeave's 271.0% TTM CapEx-to-Revenue ratio reflects a pure-play, front-loaded AI infrastructure expansion.",
+            "drivers": [
+                ("Front-Loaded GPU Deployments", "Massive clusters of NVIDIA H100, H200, and Blackwell B200 systems are acquired and commissioned upfront before compute delivery starts."),
+                ("Revenue Recognition Lag", "Multi-billion-dollar enterprise contracts (OpenAI, Microsoft) span 3 to 5 years. CapEx hits the cash flow statement immediately, while revenue is recognized ratably over the contract duration."),
+                ("Debt & OEM-Financed Growth", "As reported in Form 10-Q, the $14.1B 6-month CapEx was funded primarily by $16.75B in debt issuance and OEM credit facilities, rather than current operating cash flows.")
+            ]
+        },
+        "LLY": {
+            "title": "🔍 Institutional Deep Dive: Eli Lilly's GLP-1 Biomanufacturing Buildout",
+            "model_type": "Blockbuster Biopharmaceutical & Sterile-Injectable Scale",
+            "overview": "Eli Lilly is executing the pharmaceutical sector's most aggressive capital expenditure program (~12%–16% of revenue) to alleviate global shortages for Mounjaro and Zepbound.",
+            "drivers": [
+                ("Sterile Injectable Facilities", "Over $15B committed to constructing state-of-the-art biomanufacturing and autoinjector filling facilities in Indiana, North Carolina, and Europe."),
+                ("Supply-Constrained Demand", "Unprecedented global demand for incretin/GLP-1 therapeutics ensures that expanded manufacturing capacity will be immediately absorbed upon regulatory validation."),
+                ("High Gross Margin Payback", "GLP-1 gross margins exceeding 80% ensure rapid capital payback and surging Free Cash Flow conversion once production scales.")
+            ]
+        },
+        "AVGO": {
+            "title": "🔍 Institutional Deep Dive: Broadcom's Custom ASIC & Fabless Optical Rails",
+            "model_type": "Fabless Custom ASIC & Network Infrastructure Rails",
+            "overview": "Broadcom operates a highly disciplined fabless model (~2%–4% of revenue), outsourcing semiconductor fabrication while co-designing custom XPUs (Google TPU, Meta MTIA) and Tomahawk switching silicon.",
+            "drivers": [
+                ("Customer-Funded NRE", "Custom ASIC partners co-fund non-recurring engineering and development costs, insulating Broadcom from foundry fabrication CapEx."),
+                ("High-Margin Networking Moat", "Dominance in 800G/1.6T Ethernet switches (Tomahawk 5, Jericho3-AI) yields software-like cash flow margins with minimal property outlays."),
+                ("Disciplined Cash Flow Accretion", "Low capital expenditure requirements support robust private debt paydown following the VMware acquisition and expanding dividend distributions.")
+            ]
+        },
+        "V": {
+            "title": "🔍 Institutional Deep Dive: Visa's Hyper-Scalable Global Payment Rails",
+            "model_type": "Asset-Light Global Transaction Settlement Network",
+            "overview": "Visa operates the quintessential asset-light operating model (~1.5%–2.5% of revenue), leveraging globally established clearing and settlement networks (VisaNet).",
+            "drivers": [
+                ("Zero Marginal Cost of Processing", "Core processing rails handle over 200 billion annual transactions with negligible incremental capital cost per swipe."),
+                ("Software & Cyber Defense Reinvestment", "CapEx is focused almost entirely on real-time AI fraud detection, tokenization security, and cross-border API interfaces."),
+                ("Exceptional Free Cash Flow Margins", "Minimal reinvestment requirements enable industry-leading ~50% Free Cash Flow margins, almost entirely distributed through buybacks and dividends.")
+            ]
+        },
+        "MA": {
+            "title": "🔍 Institutional Deep Dive: Mastercard's Multi-Rail Payment Network",
+            "model_type": "Asset-Light Global Digital Payment Infrastructure",
+            "overview": "Mastercard operates an asset-light processing network (~2.0%–3.0% of revenue) with near-zero marginal cost per transaction and high cash flow generation.",
+            "drivers": [
+                ("Scalable Network Architecture", "Global Banknet clearing network processes hundreds of millions of daily transactions with negligible incremental physical hardware needs."),
+                ("Value-Added Services Reinvestment", "CapEx is directed into cybersecurity platforms, digital identity verification, and open banking API infrastructure."),
+                ("Consistent Capital Return", "High returns on invested capital (ROIC > 50%) allow Mastercard to return virtually all free cash flow to shareholders via dividends and repurchases.")
+            ]
+        },
+        "NFLX": {
+            "title": "🔍 Institutional Deep Dive: Netflix's Content Amortization vs. Physical CapEx",
+            "model_type": "Intangible Content Asset Capitalization Model",
+            "overview": "Netflix displays an ultra-low physical CapEx ratio (~1.0% of revenue) because its core capital allocation ($17B+ annually) is intangible content production capitalized and amortized through operating cash flows.",
+            "drivers": [
+                ("Intangible Content Accounting", "Film and television production expenditures are accounted for as additions to content assets rather than physical property and equipment (PP&E)."),
+                ("AWS Cloud Infrastructure Leverage", "Netflix streams global content over AWS and proprietary Open Connect edge caching appliances, eliminating the need to construct physical data centers."),
+                ("Inflection into Scaled FCF", "Post-pandemic content amortization maturity has unlocked $6B+ in annual Free Cash Flow, funding ongoing share repurchases.")
+            ]
+        },
+        "WMT": {
+            "title": "🔍 Institutional Deep Dive: Walmart's Automated Supply Chain & Omni-Fulfillment",
+            "model_type": "Automated Retail Logistics & Omni-Channel Distribution",
+            "overview": "Walmart invests ~2.5%–3.5% of revenue into transforming its massive store and distribution network into automated, robot-assisted regional fulfillment centers.",
+            "drivers": [
+                ("Automated Distribution Centers", "Deploying Symbotic robotics systems across regional distribution centers to dramatically lower per-case handling costs."),
+                ("Store Remodels & Digital Density", "Converting physical store space into automated micro-fulfillment facilities to power rapid same-day and 3-hour grocery delivery."),
+                ("Massive Cash Flow Engine", "Annual operating cash flow exceeding $35B comfortably self-funds logistics automation while expanding e-commerce advertising margins.")
+            ]
+        },
+        "COST": {
+            "title": "🔍 Institutional Deep Dive: Costco's High-Turnover Warehouse Infrastructure",
+            "model_type": "High-Volume Membership Warehouse Logistics",
+            "overview": "Costco allocates ~2.0%–3.0% of revenue toward steady, self-funded warehouse expansions, depot logistics, and automated bakery/food processing centers.",
+            "drivers": [
+                ("Disciplined Warehouse Expansion", "Opening 25–30 new high-volume warehouses annually with exceptional return on invested capital and rapid working-capital turnover."),
+                ("Depot Cross-Docking Efficiency", "Operating cross-dock depots that eliminate warehouse storage costs by moving pallets directly from supplier trucks to club floors within 24 hours."),
+                ("Negative Working Capital Moat", "Membership fees and inventory selling before supplier invoices come due provide self-funding liquidity for physical expansions.")
+            ]
+        },
+        "HD": {
+            "title": "🔍 Institutional Deep Dive: Home Depot's Pro Contractor Supply Chain",
+            "model_type": "Direct-to-Jobsite Pro Logistics & Distribution Hubs",
+            "overview": "Home Depot allocates ~2.0%–2.5% of revenue toward building a purpose-built supply chain network capable of direct-to-jobsite delivery for Professional (Pro) contractors.",
+            "drivers": [
+                ("Flatbed Delivery Centers", "Investing in specialized flatbed distribution centers optimized for oversized lumber and building material staging for commercial contractors."),
+                ("Store Technology & In-Aisle Digital", "Reinvesting in self-checkout kiosks, digital inventory shelf-scanning, and contractor fulfillment bays."),
+                ("Disciplined Capital Management", "Steady low-capital intensity supports consistent return on invested capital (ROIC > 30%) and reliable dividend growth.")
+            ]
+        },
+        "UNH": {
+            "title": "🔍 Institutional Deep Dive: UnitedHealth's Optum Clinical & Tech Ecosystem",
+            "model_type": "Integrated Healthcare Delivery & Clinical Technology",
+            "overview": "UnitedHealth Group allocates ~2.0%–3.0% of revenue to clinical ambulatory care centers, health informatics, and digital healthcare claims infrastructure.",
+            "drivers": [
+                ("Optum Clinical Care Centers", "Capital deployment into surgical centers, urgent care clinics, and primary physician practices under value-based care agreements."),
+                ("Optum Insight Analytics Rails", "Investments in digital health record platforms, AI payment integrity, and claims clearinghouse technologies."),
+                ("Defensive Cash Flow Resiliency", "Essential healthcare demand yields predictable, non-cyclical operating cash flows ($25B+ annually) that easily fund physical and technological assets.")
+            ]
+        },
+        "ABBV": {
+            "title": "🔍 Institutional Deep Dive: AbbVie's Biopharmaceutical Scale & Pipeline Expansion",
+            "model_type": "Specialized Biopharmaceutical R&D & Manufacturing",
+            "overview": "AbbVie maintains a low physical CapEx profile (~2.0%–3.0% of revenue) while channeling operating cash flows into clinical R&D, patent protection, and strategic biotech acquisitions.",
+            "drivers": [
+                ("Biologics Manufacturing Scale", "Capital allocation toward sterile filling lines and bioreactor capacity for immunology blockbusters Skyrizi and Rinvoq."),
+                ("Post-Humira Pipeline Pivot", "Rapid revenue transition toward next-gen immunology and oncology assets, successfully replacing Humira revenue cliff with minimal factory retooling."),
+                ("High Free Cash Flow Generation", "High gross margins (~75%) generate abundant cash flow to service debt incurred from strategic acquisitions while sustaining top-tier dividend payouts.")
+            ]
+        },
+        "XOM": {
+            "title": "🔍 Institutional Deep Dive: ExxonMobil's Upstream Deepwater & Permian Assets",
+            "model_type": "Integrated Upstream Energy & Downstream Refining",
+            "overview": "ExxonMobil operates a traditional heavy capital model (~6%–10% of revenue), targeting lowest-cost-of-supply upstream barrels in the Permian Basin, Guyana offshore, and LNG facilities.",
+            "drivers": [
+                ("Advantaged Low-Cost Basins", "Disciplined capital expenditures focused exclusively on low-breakeven assets (<$35/barrel) in Guyana offshore and Permian unconventional acreage."),
+                ("Refining & Petrochemical Integration", "Re-tooling Gulf Coast refining and petrochemical complexes for higher-value performance chemicals and low-carbon solutions (carbon capture)."),
+                ("Strict Capital Discipline Envelope", "Maintaining a strict $20B–$25B annual CapEx budget, protecting high dividend payouts across oil price cycles.")
+            ]
+        },
+        "GE": {
+            "title": "🔍 Institutional Deep Dive: GE Aerospace's Commercial Propulsion & Fleet Ramp",
+            "model_type": "Commercial & Defense Aerospace Propulsion Manufacturing",
+            "overview": "GE Aerospace allocates ~3.5%–5.0% of revenue to precision aerospace manufacturing, advanced metallurgy, and ceramic matrix composite (CMC) tooling to meet airline delivery backlogs.",
+            "drivers": [
+                ("CFM LEAP Engine Production", "Tooling and capacity expansion to support narrowbody commercial engine delivery schedules for Airbus A320neo and Boeing 737 MAX."),
+                ("High-Margin Aftermarket Services", "Commercial engine deliveries seed 20+ year maintenance and overhaul (MRO) contracts, generating high-margin recurring cash flows."),
+                ("Next-Gen Propulsion R&D", "Investments in open-fan architecture (CFM RISE program) and hybrid-electric flight demonstrators to ensure multi-decade propulsion dominance.")
+            ]
+        }
+    }
+    
+    if symbol in insights:
+        return insights[symbol]
+        
+    # Rule-based dynamic fallback for unlisted tickers
+    pct = recent_capex_pct if recent_capex_pct is not None else 5.0
+    if pct > 100.0:
+        return {
+            "title": f"🔍 Hyper-Expansion Dynamic: {symbol}'s Front-Loaded Capital Deployment",
+            "model_type": "Hyper-Expansion Infrastructure Model",
+            "overview": f"{symbol}'s CapEx-to-Revenue ratio ({pct:.1f}%) exceeds 100%, indicating an aggressive front-loaded asset expansion phase where physical capacity is pre-funded ahead of future revenue recognition.",
+            "drivers": [
+                ("Front-Loaded Asset Scaling", "Heavy capital outlays precede commercial revenue generation, characteristic of early-stage infrastructure builders."),
+                ("External Financing Reliance", "Capital deployment is financed via external debt facilities, OEM financing, or equity issuance rather than current operating cash flows."),
+                ("Multi-Year Payback Period", "Return on invested capital depends on high utilization and ratable customer contract ramp over subsequent fiscal periods.")
+            ]
+        }
+    elif pct < 5.0:
+        return {
+            "title": f"🔍 Asset-Light Operating Architecture: {symbol}'s Capital Efficiency",
+            "model_type": "Asset-Light Operating Model",
+            "overview": f"{symbol} maintains an asset-light operating model with CapEx representing only {pct:.1f}% of revenue, allowing the company to convert a high percentage of operating profit directly into Free Cash Flow.",
+            "drivers": [
+                ("Minimal Physical Asset Intensity", "Outsources manufacturing, utilizes partner infrastructure, or delivers digital software/services requiring low maintenance CapEx."),
+                ("High Operating Cash Flow Conversion", "Low reinvestment requirements maximize Free Cash Flow available for strategic M&A, dividends, or share repurchases."),
+                ("Scalable Marginal Economics", "Revenue growth requires minimal incremental physical capital, producing strong returns on invested capital (ROIC).")
+            ]
+        }
+    elif pct < 15.0:
+        return {
+            "title": f"🔍 Balanced Capital Allocation: {symbol}'s Maintenance & Growth Strategy",
+            "model_type": "Balanced Capital Intensity",
+            "overview": f"{symbol} operates with moderate capital intensity ({pct:.1f}% of revenue), reinvesting steadily into facility maintenance, technology modernization, and organic market expansion.",
+            "drivers": [
+                ("Steady Maintenance Reinvestment", "Allocates consistent capital toward sustaining core operational assets, manufacturing facilities, and digital infrastructure."),
+                ("Self-Funded Organic Growth", "Operating cash flows comfortably fund ongoing capital programs without requiring heavy external debt leverage."),
+                ("Balanced Shareholder Returns", "Maintains a disciplined equilibrium between capital reinvestment and cash returns to shareholders.")
+            ]
+        }
+    else:
+        return {
+            "title": f"🔍 Capital-Intensive Infrastructure: {symbol}'s Asset Expansion",
+            "model_type": "Heavy Capital & Physical Infrastructure Model",
+            "overview": f"{symbol} operates a capital-intensive business model ({pct:.1f}% of revenue), requiring substantial, recurring investment in property, plant, equipment, or specialized compute networks.",
+            "drivers": [
+                ("Substantial Asset Base", "Significant capital expenditure is mandatory to expand production capacity, network infrastructure, or specialized physical assets."),
+                ("Depreciation & Cash Flow Dynamics", "High ongoing depreciation charges impact GAAP earnings, while operating cash flows are heavily reinvested into multi-year projects."),
+                ("Barriers to Entry Moat", "Massive required capital investment creates high barriers to entry, insulating established operators from asset-light competitors.")
+            ]
+        }
+
 def get_mock_insider_trades(symbol):
     # Expanded high-fidelity insider trading stubs
     np.random.seed(abs(hash(symbol)) % 1000 + 42)
@@ -997,17 +1255,14 @@ col_m1.metric(
     value=metrics["ROIC"],
     help="Measures how efficiently a company allocates equity capital for banks (ROE), or invested debt+equity capital for non-financial firms (ROIC)."
 )
-capex_help = (
-    "Measures non-interest operating expense as a percentage of total net revenue for banks (Overhead Ratio; lower is better), "
-    "or CapEx as a percentage of revenue for non-financial corporations."
-)
-if ticker == "CRWV":
+if is_bank:
     capex_help = (
-        "CoreWeave's CapEx exceeds 100% (271.0% TTM) due to front-loaded GPU cluster deployments ahead of "
-        "ratable multi-year cloud contract revenue recognition. See CapEx tab for institutional analysis."
+        "Measures non-interest operating expense as a percentage of total net revenue for banks (Overhead Ratio; lower is better). "
+        "Standard CapEx is non-applicable to commercial banking capital structures."
     )
-elif not is_bank:
-    capex_help = "Measures CapEx as a percentage of revenue. Lower typically indicates asset-light efficiency; >100% indicates aggressive front-loaded asset expansion."
+else:
+    alloc_summary = get_capex_allocation_insight(ticker)
+    capex_help = f"CapEx to Revenue ({metrics['CapEx_Eff']}): {alloc_summary['overview']} Inspect the CapEx tab for institutional analysis."
 
 col_m2.metric(
     label="Bank Efficiency Ratio" if is_bank else "CapEx to Revenue Efficiency", 
@@ -1294,29 +1549,23 @@ if not chart_df.empty:
                 st.caption(f"💡 **Efficiency Verdict:** The CapEx/Revenue trend is **{trend_str}** over the last 5 years. "
                            f"Current classification: **{verdict}** (Latest Ratio: {recent_capex_pct:.2f}%).")
                 
-                if ticker == "CRWV":
-                    st.markdown("""
-                    <div style="background-color: rgba(59, 130, 246, 0.08); border-left: 4px solid #3b82f6; padding: 14px 18px; border-radius: 6px; margin-top: 15px;">
-                        <h5 style="margin: 0 0 8px 0; color: #93c5fd; font-size: 15px;">🔍 Institutional Deep Dive: Why Does CoreWeave's CapEx Exceed Revenue by 2.7x (271%)?</h5>
-                        <p style="margin: 0; font-size: 13.5px; line-height: 1.6; color: #e2e8f0;">
-                            Unlike mature cloud hyperscalers whose CapEx is 25%–40% of revenue, CoreWeave's <b>271.0% TTM CapEx-to-Revenue ratio</b> reflects a pure-play, front-loaded AI infrastructure expansion:
-                        </p>
-                        <ul style="margin: 8px 0 0 0; padding-left: 20px; font-size: 13px; line-height: 1.6; color: #cbd5e1;">
-                            <li><b>Front-Loaded GPU Deployments:</b> Massive clusters of NVIDIA H100, H200, and Blackwell B200 systems are acquired and commissioned upfront before compute delivery starts.</li>
-                            <li><b>Revenue Recognition Lag:</b> Multi-billion-dollar enterprise contracts (OpenAI, Microsoft) span 3 to 5 years. CapEx hits the cash flow statement immediately, while revenue is recognized ratably over the contract duration.</li>
-                            <li><b>Debt & OEM-Financed Growth:</b> As reported in Form 10-Q, the $14.1B 6-month CapEx was funded primarily by $16.75B in debt issuance and OEM credit facilities, rather than current operating cash flows.</li>
-                        </ul>
+                # Render Institutional Capital Allocation Deep Dive
+                alloc_insight = get_capex_allocation_insight(ticker, recent_capex_pct)
+                drivers_html = "".join([f"<li style='margin-bottom: 6px;'><b>{d[0]}:</b> {d[1]}</li>" for d in alloc_insight["drivers"]])
+                st.markdown(f"""
+                <div style="background-color: rgba(59, 130, 246, 0.08); border-left: 4px solid #3b82f6; padding: 14px 18px; border-radius: 6px; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <h5 style="margin: 0; color: #93c5fd; font-size: 15px;">{alloc_insight['title']}</h5>
+                        <span style="font-size: 11px; background: rgba(59, 130, 246, 0.2); color: #bfdbfe; padding: 3px 9px; border-radius: 12px; font-weight: 500;">{alloc_insight['model_type']}</span>
                     </div>
-                    """, unsafe_allow_html=True)
-                elif recent_capex_pct > 100.0:
-                    st.markdown(f"""
-                    <div style="background-color: rgba(59, 130, 246, 0.08); border-left: 4px solid #3b82f6; padding: 14px 18px; border-radius: 6px; margin-top: 15px;">
-                        <h5 style="margin: 0 0 8px 0; color: #93c5fd; font-size: 15px;">🔍 Hyper-Expansion Dynamic: CapEx Exceeds 100% of Revenue ({recent_capex_pct:.1f}%)</h5>
-                        <p style="margin: 0; font-size: 13.5px; line-height: 1.6; color: #e2e8f0;">
-                            A CapEx-to-Revenue ratio exceeding 100% indicates that {ticker} is in a heavy front-loaded capital deployment phase, typical of early-stage infrastructure builders where physical capacity is pre-funded ahead of multi-year contract revenue recognition.
-                        </p>
-                    </div>
-                    """, unsafe_allow_html=True)
+                    <p style="margin: 0 0 8px 0; font-size: 13.5px; line-height: 1.6; color: #e2e8f0;">
+                        {alloc_insight['overview']}
+                    </p>
+                    <ul style="margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.6; color: #cbd5e1;">
+                        {drivers_html}
+                    </ul>
+                </div>
+                """, unsafe_allow_html=True)
 
     with tab_alpha:
         st.write(
