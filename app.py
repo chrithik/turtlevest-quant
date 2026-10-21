@@ -2066,7 +2066,7 @@ with col_tech2:
 with col_tech3:
     st.markdown("""
     ##### 🤖 Agent-Assisted Engineering
-    Developed using an agent-first workflow with <span style="color: #10b981; font-weight: 700;">Google Antigravity</span>. Served as an interactive collaborator for quantitative finance research—accelerating the translation of academic models (Altman Z credit risk, DuPont ROIC, and CapEx cycles) into production algorithms and structured SEC filing insights.
+    Developed using an agent-first workflow with <span style="color: #10b981; font-weight: 700;">Google Antigravity</span>. Served as an interactive collaborator for quantitative finance research—accelerating the translation of academic models (Altman Z credit risk, DuPont ROIC, and CapEx cycles) into interactive analytics and structured SEC filing insights.
     """, unsafe_allow_html=True)
 
 # ----------------------------------------------------
