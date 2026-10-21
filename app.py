@@ -271,20 +271,36 @@ elif "CRWV" not in cached_symbols:
     cached_symbols.append("CRWV")
     cached_symbols.sort()
 
-# Find the default index based on the query parameter or default to NVDA
-default_ticker = st.query_params.get("ticker", "NVDA").upper().strip()
-if default_ticker not in cached_symbols:
-    default_ticker = "NVDA" if "NVDA" in cached_symbols else cached_symbols[0]
+# Initialize active ticker in session_state from query params on first load
+if "active_ticker" not in st.session_state:
+    qp_ticker = st.query_params.get("ticker", "NVDA").upper().strip()
+    if qp_ticker in cached_symbols:
+        st.session_state["active_ticker"] = qp_ticker
+    else:
+        st.session_state["active_ticker"] = "NVDA" if "NVDA" in cached_symbols else cached_symbols[0]
 
-default_index = cached_symbols.index(default_ticker)
+# Ensure valid ticker selection
+if st.session_state["active_ticker"] not in cached_symbols:
+    st.session_state["active_ticker"] = "NVDA" if "NVDA" in cached_symbols else cached_symbols[0]
 
-ticker = st.selectbox(
-    "Select Ticker Symbol:",
-    options=cached_symbols,
-    index=default_index,
-    key="ticker"
-)
-st.query_params["ticker"] = ticker
+def on_ticker_select():
+    selected = st.session_state.get("ticker_widget")
+    if selected:
+        st.session_state["active_ticker"] = selected
+        st.query_params["ticker"] = selected
+
+# Render compact dropdown in a narrow column (prevents full widescreen stretching)
+col_sel, _ = st.columns([1.2, 3.8])
+with col_sel:
+    ticker = st.selectbox(
+        "Select Ticker Symbol:",
+        options=cached_symbols,
+        index=cached_symbols.index(st.session_state["active_ticker"]),
+        key="ticker_widget",
+        on_change=on_ticker_select
+    )
+    st.session_state["active_ticker"] = ticker
+    st.query_params["ticker"] = ticker
 
 # Informational banner showing weekly ingestion sweep status and available index symbols
 index_list_str = ", ".join(cached_symbols)
