@@ -302,19 +302,16 @@ with col_sel:
     st.session_state["active_ticker"] = ticker
     st.query_params["ticker"] = ticker
 
-# Informational banner showing weekly ingestion sweep status and available index symbols
+# Informational banner showing pre-indexed database status and available symbols in one sleek line
 index_list_str = ", ".join(cached_symbols)
 st.markdown(f"""
-<div style="background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.15); border-radius: 8px; padding: 12px; margin-bottom: 20px;">
-    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-        <span style="color: #10b981; font-weight: 700; font-size: 0.9rem;">🟢 SEC Filing & Financial Database</span>
-        <span style="background: rgba(16, 185, 129, 0.12); color: #10b981; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">
-            DATA AS OF: {get_latest_sweep_date()}
-        </span>
+<div style="background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.15); border-radius: 8px; padding: 10px 16px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+    <div style="font-size: 0.85rem; color: #94a3b8; line-height: 1.4;">
+        <span style="color: #10b981; font-weight: 700;">🟢 SEC Database:</span> Regulatory filings and financial models pre-indexed for: <span style="color: #f8fafc; font-weight: 600;">{index_list_str}</span>
     </div>
-    <p style="margin: 6px 0 0 0; font-size: 0.85rem; color: #94a3b8; line-height: 1.4;">
-        To ensure fast, reliable access and comply with SEC guidelines, this terminal stores regulatory filings and financial models for market-active equities. Available companies: <span style='color: #f8fafc; font-weight: 600;'>{index_list_str}</span>.
-    </p>
+    <span style="background: rgba(16, 185, 129, 0.12); color: #10b981; padding: 3px 8px; border-radius: 4px; font-size: 0.74rem; font-weight: 600; white-space: nowrap;">
+        DATA AS OF: {get_latest_sweep_date()}
+    </span>
 </div>
 """, unsafe_allow_html=True)
 
