@@ -11,7 +11,7 @@ load_dotenv()
 FALLBACK_BASKET = [
     "MSFT", "AAPL", "NVDA", "AVGO", "GOOGL", 
     "META", "AMZN", "TSLA", "JPM", "LLY", 
-    "UNH", "ABBV", "XOM", "GE", "COST", 
+    "CRWV", "UNH", "ABBV", "XOM", "GE", "COST", 
     "WMT", "HD", "MA", "V", "NFLX"
 ]
 

@@ -39,7 +39,8 @@ COMPANY_NAMES = {
     "HD": "Home Depot, Inc.",
     "MA": "Mastercard Incorporated",
     "V": "Visa Inc.",
-    "NFLX": "Netflix, Inc."
+    "NFLX": "Netflix, Inc.",
+    "CRWV": "CoreWeave, Inc."
 }
 
 # Financial / Banking Institutions Mapping
@@ -265,7 +266,10 @@ st.write("Select an equity ticker to inspect fundamental metrics and parsed SEC 
 # Query cached symbols from the database or fall back to the index basket if offline
 cached_symbols = get_cached_tickers()
 if not cached_symbols:
-    cached_symbols = ["AAPL", "AMZN", "AVGO", "GOOGL", "JPM", "LLY", "META", "MSFT", "NVDA", "TSLA"]
+    cached_symbols = ["AAPL", "AMZN", "AVGO", "CRWV", "GOOGL", "JPM", "LLY", "META", "MSFT", "NVDA", "TSLA"]
+elif "CRWV" not in cached_symbols:
+    cached_symbols.append("CRWV")
+    cached_symbols.sort()
 
 # Find the default index based on the query parameter or default to NVDA
 default_ticker = st.query_params.get("ticker", "NVDA").upper().strip()
@@ -323,7 +327,8 @@ def get_metrics(symbol):
         "GOOGL": {"ROIC": "23.5%", "CapEx_Eff": "6.9x", "FCF_Margin": "24.8%", "Altman_Z": "6.90", "status": "Strong"},
         "WMT": {"ROIC": "10.8%", "CapEx_Eff": "2.3x", "FCF_Margin": "4.5%", "Altman_Z": "3.90", "status": "Stable Retail"},
         "LLY": {"ROIC": "19.5%", "CapEx_Eff": "5.4x", "FCF_Margin": "18.2%", "Altman_Z": "5.60", "status": "Strong Healthcare"},
-        "JPM": {"ROIC": "15.4% (ROE)", "CapEx_Eff": "34.0% (Efficiency)", "FCF_Margin": "N/A (Banking)", "Altman_Z": "N/A (Banking)", "status": "Systemic Core"}
+        "JPM": {"ROIC": "15.4% (ROE)", "CapEx_Eff": "34.0% (Efficiency)", "FCF_Margin": "N/A (Banking)", "Altman_Z": "N/A (Banking)", "status": "Systemic Core"},
+        "CRWV": {"ROIC": "-0.4%", "CapEx_Eff": "200.9%", "FCF_Margin": "-40.1%", "Altman_Z": "2.45", "status": "Hyper-Growth AI Infra"}
     }
     
     try:
@@ -796,6 +801,23 @@ def get_mock_sec_insight(symbol):
             "Litigation regarding App Store policies poses legal and regulatory challenges that could impair margins. "
             "Failure to maintain technological leadership and ecosystem integration would cause user decline."
         )
+    elif symbol == "CRWV":
+        summary = (
+            "Executive Summary:\n"
+            "CoreWeave, Inc. operates a hyperscale specialized cloud infrastructure platform purpose-built for generative AI (GenAI) workloads. "
+            "The company is aggressively expanding its massive GPU compute clusters, delivering specialized infrastructure for AI model training and inference.\n\n"
+            "**Key Catalysts & Risks**:\n"
+            "- Aggressive CapEx investments in next-generation NVIDIA GPU clusters and ultra-high-bandwidth networking.\n"
+            "- Multi-billion-dollar enterprise cloud compute contracts with major frontier AI developers and hyperscalers.\n"
+            "- High debt financing requirements and capital intensity required to construct gigawatt-scale data center capacity."
+        )
+        risk_factors = (
+            "We operate in the rapidly evolving and capital-intensive AI cloud infrastructure market. "
+            "Our growth depends heavily on sustained commercial demand for generative AI training and inference. "
+            "We face risks related to significant customer concentration, massive capital expenditure commitments, and reliance on primary hardware suppliers including NVIDIA. "
+            "Substantial debt leverage incurred to finance data center construction and GPU clusters increases our vulnerability to interest rate shifts. "
+            "Power supply constraints, grid interconnection delays, and data center real estate shortages could delay facility commissioning and harm our operating results."
+        )
     elif is_financial:
         summary = (
             "Executive Summary:\n"
@@ -950,6 +972,10 @@ def get_narrative_sentiment(symbol):
         "WMT": {
             "verdict": "Strong e-commerce margin growth and value-consumer inflows support defensive valuation premiums.",
             "summary": "Shift toward value-based consumer retail yields steady positioning, providing a reliable hedge during market volatility."
+        },
+        "CRWV": {
+            "verdict": "Exponential GPU cluster expansion driving hyper-growth, balanced against high capital intensity and financing leverage.",
+            "summary": "CoreWeave is leading the specialized AI cloud infrastructure market with massive compute buildouts, positioning it as a critical supplier for frontier AI workloads."
         }
     }
     return narratives.get(symbol, {
@@ -1445,6 +1471,14 @@ if not chart_df.empty:
                     "Supply chain concentration, specifically dependency on single-source suppliers in East Asia, exposes us to severe disruption risks. "
                     "Litigation regarding App Store policies poses legal and regulatory challenges that could impair margins. "
                     "Failure to maintain technological leadership and ecosystem integration would cause user decline."
+                )
+            elif ticker == "CRWV":
+                summary_text = "Consensus reflects massive enterprise GenAI demand, sustained revenue acceleration from GPU cloud deployments, and high capital expenditure commitments."
+                risk_text = (
+                    "We operate in the rapidly evolving and capital-intensive AI cloud infrastructure market. "
+                    "Our growth depends heavily on sustained commercial demand for generative AI training and inference. "
+                    "We face risks related to customer concentration, debt financing leverage, and reliance on hardware suppliers including NVIDIA. "
+                    "Power availability, grid interconnection delays, and cooling infrastructure constraints could delay facility deployments."
                 )
             else:
                 summary_text = f"Consensus reflects moderate exposure to supply-chain friction, intense regulatory scrutiny in core markets, and currency headwinds. Growth indicators remain stable but competitive pressure is noted."
