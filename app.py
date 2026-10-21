@@ -997,10 +997,22 @@ col_m1.metric(
     value=metrics["ROIC"],
     help="Measures how efficiently a company allocates equity capital for banks (ROE), or invested debt+equity capital for non-financial firms (ROIC)."
 )
+capex_help = (
+    "Measures non-interest operating expense as a percentage of total net revenue for banks (Overhead Ratio; lower is better), "
+    "or CapEx as a percentage of revenue for non-financial corporations."
+)
+if ticker == "CRWV":
+    capex_help = (
+        "CoreWeave's CapEx exceeds 100% (271.0% TTM) due to front-loaded GPU cluster deployments ahead of "
+        "ratable multi-year cloud contract revenue recognition. See CapEx tab for institutional analysis."
+    )
+elif not is_bank:
+    capex_help = "Measures CapEx as a percentage of revenue. Lower typically indicates asset-light efficiency; >100% indicates aggressive front-loaded asset expansion."
+
 col_m2.metric(
     label="Bank Efficiency Ratio" if is_bank else "CapEx to Revenue Efficiency", 
     value=metrics["CapEx_Eff"],
-    help="Measures non-interest operating expense as a percentage of total net revenue for banks (Overhead Ratio; lower is better), or CapEx as a percentage of revenue for non-financial corporations."
+    help=capex_help
 )
 col_m3.metric(
     label="Free Cash Flow Margin", 
@@ -1281,6 +1293,30 @@ if not chart_df.empty:
                 verdict = "Asset-Light / Highly Efficient" if recent_capex_pct < 5.0 else "Moderate Capital Intensity" if recent_capex_pct < 12.0 else "Capital Intensive / Asset-Heavy"
                 st.caption(f"💡 **Efficiency Verdict:** The CapEx/Revenue trend is **{trend_str}** over the last 5 years. "
                            f"Current classification: **{verdict}** (Latest Ratio: {recent_capex_pct:.2f}%).")
+                
+                if ticker == "CRWV":
+                    st.markdown("""
+                    <div style="background-color: rgba(59, 130, 246, 0.08); border-left: 4px solid #3b82f6; padding: 14px 18px; border-radius: 6px; margin-top: 15px;">
+                        <h5 style="margin: 0 0 8px 0; color: #93c5fd; font-size: 15px;">🔍 Institutional Deep Dive: Why Does CoreWeave's CapEx Exceed Revenue by 2.7x (271%)?</h5>
+                        <p style="margin: 0; font-size: 13.5px; line-height: 1.6; color: #e2e8f0;">
+                            Unlike mature cloud hyperscalers whose CapEx is 25%–40% of revenue, CoreWeave's <b>271.0% TTM CapEx-to-Revenue ratio</b> reflects a pure-play, front-loaded AI infrastructure expansion:
+                        </p>
+                        <ul style="margin: 8px 0 0 0; padding-left: 20px; font-size: 13px; line-height: 1.6; color: #cbd5e1;">
+                            <li><b>Front-Loaded GPU Deployments:</b> Massive clusters of NVIDIA H100, H200, and Blackwell B200 systems are acquired and commissioned upfront before compute delivery starts.</li>
+                            <li><b>Revenue Recognition Lag:</b> Multi-billion-dollar enterprise contracts (OpenAI, Microsoft) span 3 to 5 years. CapEx hits the cash flow statement immediately, while revenue is recognized ratably over the contract duration.</li>
+                            <li><b>Debt & OEM-Financed Growth:</b> As reported in Form 10-Q, the $14.1B 6-month CapEx was funded primarily by $16.75B in debt issuance and OEM credit facilities, rather than current operating cash flows.</li>
+                        </ul>
+                    </div>
+                    """, unsafe_allow_html=True)
+                elif recent_capex_pct > 100.0:
+                    st.markdown(f"""
+                    <div style="background-color: rgba(59, 130, 246, 0.08); border-left: 4px solid #3b82f6; padding: 14px 18px; border-radius: 6px; margin-top: 15px;">
+                        <h5 style="margin: 0 0 8px 0; color: #93c5fd; font-size: 15px;">🔍 Hyper-Expansion Dynamic: CapEx Exceeds 100% of Revenue ({recent_capex_pct:.1f}%)</h5>
+                        <p style="margin: 0; font-size: 13.5px; line-height: 1.6; color: #e2e8f0;">
+                            A CapEx-to-Revenue ratio exceeding 100% indicates that {ticker} is in a heavy front-loaded capital deployment phase, typical of early-stage infrastructure builders where physical capacity is pre-funded ahead of multi-year contract revenue recognition.
+                        </p>
+                    </div>
+                    """, unsafe_allow_html=True)
 
     with tab_alpha:
         st.write(
