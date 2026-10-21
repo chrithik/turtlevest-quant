@@ -198,7 +198,7 @@ with col_title:
             Disciplined Investing, Driven by Quantitative Disclosures
         </h2>
         <p style="margin: 0; font-size: 0.88rem; color: #94a3b8; line-height: 1.5; font-family: 'sans-serif';">
-            Bridging foundational financial literacy on the TurtleVest iOS app with institutional-grade equity analysis. Powered by raw SEC EDGAR data pipelines, TurtleVest Quant strips away market noise to track corporate efficiency, capital expenditures, and institutional disclosures.
+            Bridging foundational financial literacy on the TurtleVest iOS app with rigorous fundamental equity analysis. Powered by raw SEC EDGAR data pipelines, TurtleVest Quant strips away market noise to track corporate efficiency, capital allocation, and regulatory disclosures.
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -1333,9 +1333,9 @@ col_m4.metric(
     help="Predicts corporate bankruptcy probability within 2 years. Z-Score > 3.0 indicates Safe Zone, Z-Score < 1.8 indicates Distress Zone. Note: Not applicable to financial/banking institutions due to unique capital structures."
 )
 col_m5.metric(
-    label="Pipeline Verification Status", 
+    label="Fundamental Profile", 
     value=metrics["status"],
-    help="Indicates whether the data shown was verified via financial APIs or loaded from our pre-indexed database archive."
+    help="Summary assessment of the company's financial resilience and balance sheet profile based on historical fundamentals."
 )
 
 st.markdown("<br>", unsafe_allow_html=True)
@@ -1470,18 +1470,18 @@ if not chart_df.empty:
         tab_narrative, tab_capex, tab_alpha = st.tabs([
             "🧠 Qualitative Risk & Semantic NLP Parser",
             eff_tab_title, 
-            "🏢 Institutional & Insider Alpha"
+            "🏢 Institutional & Insider Holdings"
         ])
     elif active_tab == "alpha":
         tab_alpha, tab_capex, tab_narrative = st.tabs([
-            "🏢 Institutional & Insider Alpha",
+            "🏢 Institutional & Insider Holdings",
             eff_tab_title, 
             "🧠 Qualitative Risk & Semantic NLP Parser"
         ])
     else:
         tab_capex, tab_alpha, tab_narrative = st.tabs([
             eff_tab_title, 
-            "🏢 Institutional & Insider Alpha", 
+            "🏢 Institutional & Insider Holdings", 
             "🧠 Qualitative Risk & Semantic NLP Parser"
         ])
     
@@ -1622,9 +1622,9 @@ if not chart_df.empty:
 
     with tab_alpha:
         st.write(
-            "**Institutional Alpha & Insider Accumulation** tracks shifts in corporate ownership "
+            "**Institutional & Insider Holdings** tracks shifts in corporate ownership "
             "by aggregating regulatory SEC Form 13F and Form 4 disclosures. This reveals where "
-            "institutional and corporate insider capital is actively compounding."
+            "major institutional asset managers and corporate executives are allocating capital."
         )
         
         st.markdown("#### 🏛️ SEC Form 13F: Institutional Ownership Shifts (Quarter-over-Quarter)")
@@ -1734,16 +1734,16 @@ if not chart_df.empty:
             insider_disp["Price"] = insider_disp["Price"].map(lambda x: f"${float(x):,.2f}" if float(x) > 0 else "Grant ($0.00)")
             st.dataframe(insider_disp, use_container_width=True, hide_index=True)
             
-            # Display Insider Alpha Verdict
+            # Display Insider Sentiment Verdict
             buy_count = len(buys)
             sell_count = len(sales)
             
             if buy_count > sell_count:
-                st.success(f"🟩 **Insider Alpha Verdict:** Corporate insiders are in **NET ACCUMULATION (Buys > Sales)** (Buys: {buy_count} txns / {int(total_bought):,} shares vs. Sales: {sell_count} txns / {int(total_sold):,} shares) over the recent transactions.")
+                st.success(f"🟩 **Insider Sentiment Verdict:** Corporate insiders are in **NET ACCUMULATION (Buys > Sales)** (Buys: {buy_count} txns / {int(total_bought):,} shares vs. Sales: {sell_count} txns / {int(total_sold):,} shares) over recent transactions.")
             elif sell_count > buy_count:
-                st.warning(f"🟥 **Insider Alpha Verdict:** Corporate insiders are in **NET DISTRIBUTION (Sales > Buys)** (Buys: {buy_count} txns / {int(total_bought):,} shares vs. Sales: {sell_count} txns / {int(total_sold):,} shares) over the recent transactions.")
+                st.warning(f"🟥 **Insider Sentiment Verdict:** Corporate insiders are in **NET DISTRIBUTION (Sales > Buys)** (Buys: {buy_count} txns / {int(total_bought):,} shares vs. Sales: {sell_count} txns / {int(total_sold):,} shares) over recent transactions.")
             else:
-                st.info(f"ℹ️ **Insider Alpha Verdict:** Corporate insider transactions are **BALANCED (Equal action)** (Buys: {buy_count} txns / {int(total_bought):,} shares vs. Sales: {sell_count} txns / {int(total_sold):,} shares) over the recent transactions.")
+                st.info(f"ℹ️ **Insider Sentiment Verdict:** Corporate insider transactions are **BALANCED (Equal action)** (Buys: {buy_count} txns / {int(total_bought):,} shares vs. Sales: {sell_count} txns / {int(total_sold):,} shares) over recent transactions.")
         else:
             st.info(f"ℹ️ No recent corporate insider transactions (Form 4) found on file with the SEC for {ticker}.")
 
@@ -1964,11 +1964,11 @@ with col_p1:
 with col_p2:
     st.markdown("""
     <div class="feature-card">
-        <div class="feature-header">Institutional Alpha Engine</div>
+        <div class="feature-header">Ownership & Insider Tracker</div>
         <div class="feature-desc">
-            Tracks elite hedge fund accumulation patterns. Ingests and aggregates SEC Form 13F filings to highlight where long-term capital is compounding.
+            Monitors institutional asset manager holdings and executive transactions. Aggregates regulatory SEC Form 13F and Form 4 filings to observe broad ownership shifts.
             <br><br>
-            <strong>Quantitative Framework:</strong> 13F Sentiment & Ownership Shifts
+            <strong>Quantitative Framework:</strong> Regulatory Ownership Shifts (SEC Form 13F & Form 4)
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -1978,9 +1978,9 @@ with col_p3:
     <div class="feature-card">
         <div class="feature-header">Narrative Sentiment Engine</div>
         <div class="feature-desc">
-            Deciphers shifting risk factors inside corporate corridors. Runs NLP state-comparison scripts to parse Item 1A text changes year-over-year.
+            Analyzes changes in corporate risk disclosures. Uses NLP and LLM prompt parsing to evaluate Item 1A (Risk Factors) and MD&A text across consecutive filings.
             <br><br>
-            <strong>Quantitative Framework:</strong> Gemini Semantic Anxiety Indexes
+            <strong>Quantitative Framework:</strong> Semantic Risk & Corporate Anxiety Indexes
         </div>
     </div>
     """, unsafe_allow_html=True)
