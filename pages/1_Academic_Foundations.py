@@ -79,8 +79,9 @@ with col_eq2:
     st.subheader("2. Altman Z-Score (Manufacturing/General Corporate)")
     st.markdown(
         "Predicts the probability that a firm will enter bankruptcy within two years. "
-        "A Z-Score > <span style='color:#10b981; font-weight:bold;'>3.0</span> indicates 'Safe Zone'; "
-        "< <span style='color:#ef4444; font-weight:bold;'>1.8</span> indicates 'Distress Zone'.",
+        "A Z-Score > <span style='color:#10b981; font-weight:bold;'>3.0</span> indicates 'Safe Zone' (low default risk); "
+        "between <span style='color:#f59e0b; font-weight:bold;'>1.8 and 3.0</span> indicates 'Grey Zone' (caution / transitional leverage); "
+        "and < <span style='color:#ef4444; font-weight:bold;'>1.8</span> indicates 'Distress Zone'.",
         unsafe_allow_html=True
     )
     st.markdown("""

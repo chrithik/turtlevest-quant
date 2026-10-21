@@ -1327,10 +1327,37 @@ col_m3.metric(
     value=metrics["FCF_Margin"],
     help="The percentage of revenue converted into Free Cash Flow (FCF). Note: Standard Free Cash Flow is non-applicable to commercial banks due to deposit and loan cash dynamics."
 )
+# Compute Altman Z-Score Risk Classification Zone
+altman_val_raw = metrics.get("Altman_Z", "N/A")
+z_delta = None
+z_color = "off"
+
+try:
+    altman_float = float(str(altman_val_raw).replace(",", "").strip())
+    if altman_float >= 3.0:
+        z_delta = "🟢 Safe Zone (> 3.0)"
+    elif altman_float >= 1.8:
+        z_delta = "🟡 Grey Zone (1.8 - 3.0)"
+    else:
+        z_delta = "🔴 Distress Zone (< 1.8)"
+except (ValueError, TypeError):
+    if "Bank" in str(altman_val_raw):
+        z_delta = "⚪ Capital Exempt (Banks)"
+    else:
+        z_delta = None
+
 col_m4.metric(
     label="Altman Z-Score",
-    value=metrics.get("Altman_Z", "N/A"),
-    help="Predicts corporate bankruptcy probability within 2 years. Z-Score > 3.0 indicates Safe Zone, Z-Score < 1.8 indicates Distress Zone. Note: Not applicable to financial/banking institutions due to unique capital structures."
+    value=altman_val_raw,
+    delta=z_delta,
+    delta_color=z_color,
+    help=(
+        "Predicts corporate bankruptcy probability within 2 years (Edward Altman Model). "
+        "🟢 Safe Zone (> 3.0): Financially sound balance sheet. "
+        "🟡 Grey Zone (1.8 - 3.0): Moderate/cautionary risk tier (e.g., debt-funded AI infrastructure ramp like CoreWeave). "
+        "🔴 Distress Zone (< 1.8): High statistical probability of corporate distress. "
+        "Commercial banks are exempt due to deposit-backed capital structures."
+    )
 )
 col_m5.metric(
     label="Fundamental Profile", 
