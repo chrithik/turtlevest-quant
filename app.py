@@ -2053,7 +2053,7 @@ with col_tech2:
 with col_tech3:
     st.markdown("""
     ##### 🤖 Agent-Assisted Engineering
-    Developed using an agent-first paradigm with <span style="color: #10b981; font-weight: 700;">Google Antigravity</span>. Beyond scaffolding data pipelines and database architecture, the tool served as an interactive engineering collaborator—accelerating the translation of academic finance models into production Python algorithms.
+    Developed using an agent-first workflow with <span style="color: #10b981; font-weight: 700;">Google Antigravity</span>. As a business and quantitative finance researcher, the AI agent served as an interactive engineering collaborator—accelerating the translation of academic financial models (Altman Z credit risk, DuPont ROIC, and CapEx cycle tracking) into production code, while assisting in the extraction and structuring of deep corporate research notes (such as Apple's asset-light supply chain, ExxonMobil's low-breakeven upstream assets, and CoreWeave's GPU debt financing).
     """, unsafe_allow_html=True)
 
 # ----------------------------------------------------
