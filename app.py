@@ -1544,7 +1544,6 @@ if not chart_df.empty:
                 verdict = "World-Class Tier 1 Efficiency (<40%)" if recent_ratio < 40.0 else "Healthy Bank Efficiency (40-60%)" if recent_ratio < 60.0 else "High Overhead (>60%)"
                 st.caption(f"💡 **Operating Leverage Verdict:** The Bank Efficiency Ratio trend is **{trend_str}** over the last 5 years. "
                            f"Current classification: **{verdict}** (Latest Ratio: {recent_ratio:.2f}%).")
-                st.caption("📌 *Note on Fiscal Years: Historical charts reflect completed annual filings (e.g., FY2025 for calendar year-end firms like JPMorgan). Real-time ratios in the top metric cards incorporate the latest quarterly Form 10-Q disclosures.*")
         else:
             st.write(
                 "**Capital Expenditure (CapEx) to Revenue Ratio** maps how many dollars "
@@ -1602,7 +1601,6 @@ if not chart_df.empty:
                 verdict = "Asset-Light / Highly Efficient" if recent_capex_pct < 5.0 else "Moderate Capital Intensity" if recent_capex_pct < 12.0 else "Capital Intensive / Asset-Heavy"
                 st.caption(f"💡 **Efficiency Verdict:** The CapEx/Revenue trend is **{trend_str}** over the last 5 years. "
                            f"Current classification: **{verdict}** (Latest Ratio: {recent_capex_pct:.2f}%).")
-                st.caption("📌 *Note on Fiscal Years: Historical charts reflect completed annual filings (e.g., FY2026 for off-calendar firms like NVIDIA, and FY2025 for calendar year-end firms like CoreWeave). Real-time ratios in the top metric cards incorporate the latest quarterly Form 10-Q disclosures.*")
                 
                 # Render Student Research Notes on Capital Allocation
                 alloc_insight = get_capex_allocation_insight(ticker, recent_capex_pct)
